@@ -15,7 +15,7 @@ export class CreateUserUseCase {
     private JWTTokenProvider: ITokenProvider,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<string> {
+  async execute(data: ICreateUserRequestDTO): Promise<{ user: User; token: string }> {
     const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
@@ -42,6 +42,6 @@ export class CreateUserUseCase {
 
     const token: string = this.JWTTokenProvider.generateToken({ id: user.user_id });
 
-    return token;
+    return { user, token };
   }
 }
