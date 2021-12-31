@@ -18,7 +18,7 @@ export class CreateUserController {
         authorized: false,
       });
   
-      return response.status(201).send({ token });
+      return response.status(201).json({ token });
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',
