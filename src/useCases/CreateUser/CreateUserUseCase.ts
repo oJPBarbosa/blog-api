@@ -1,8 +1,11 @@
 import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IMailProvider } from '../../providers/IMailProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../entities/User'
 import { genSaltSync, hashSync } from 'bcrypt'
-import { IMailProvider } from '../../providers/IMailProvider'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export class CreateUserUseCase {
   constructor(
@@ -28,11 +31,11 @@ export class CreateUserUseCase {
         name: data.name,
       },
       from: {
-        email: 'jpfb.dev',
-        name: 'website@jpfb.dev',
+        email: process.env.EMAIL_ADDRESS,
+        name: process.env.EMAIL_NAME,
       },
-      subject: 'Welcome!',
-      body: '<p>Hey!<p>',
+      subject: process.env.EMAIL_SUBJECT,
+      body: process.env.EMAIL_BODY,
     });
 
     return user;
