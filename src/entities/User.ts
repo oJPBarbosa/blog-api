@@ -28,7 +28,7 @@ export class User {
   @UpdateDateColumn()
   public updated_at: Date;
 
-  constructor(props: Omit<User, 'user_id'>) {
+  constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);
     this.user_id = v4();
   }
