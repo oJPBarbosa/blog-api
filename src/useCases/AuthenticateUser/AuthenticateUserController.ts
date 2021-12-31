@@ -15,7 +15,7 @@ export class AuthenticateUserController {
         password,
       });
 
-      return response.json(token);
+      return response.json({ token });
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',
