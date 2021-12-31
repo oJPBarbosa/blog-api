@@ -10,7 +10,7 @@ export class DeleteUserController {
     const { id } = request.body;
 
     try {
-      await this.deleteUserUseCase.execute(id);
+      await this.deleteUserUseCase.execute({ id });
 
       return response.send();
     } catch (err) {
