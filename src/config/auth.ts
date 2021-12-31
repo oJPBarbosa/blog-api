@@ -2,8 +2,6 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const config = {
-  secret: process.env.SECRET,
-}
+const SECRET: string = process.env.SECRET
 
-export { config }
+export { SECRET }

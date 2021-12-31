@@ -2,12 +2,12 @@ import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
 import { User } from '../../entities/User'
 import { compare } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
-import { config } from '../../config/auth'
+import { ITokenProvider } from '../../providers/ITokenProvider'
 
 export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
+    private JWTTokenProvider: ITokenProvider,
   ) {}
 
   async execute(data: IAuthenticateUserRequestDTO): Promise<string | null> {
@@ -23,16 +23,6 @@ export class AuthenticateUserUseCase {
       throw new Error('Invalid password.');
     }
 
-    const token = sign(
-      {
-        id: user.id, 
-      }, 
-      config.secret, 
-      {
-        expiresIn: 86400,
-      }
-    );
-
-    return token;
+    return this.JWTTokenProvider.generateToken({ id: user.id });
   }
 }
