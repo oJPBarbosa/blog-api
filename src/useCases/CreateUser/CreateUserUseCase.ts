@@ -1,5 +1,6 @@
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { IMailProvider } from '../../providers/IMailProvider'
+import { ITokenProvider } from '../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../entities/User'
 import { genSaltSync, hashSync } from 'bcrypt'
@@ -11,9 +12,10 @@ export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
     private mailProvider: IMailProvider,
+    private JWTTokenProvider: ITokenProvider,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<User> {
+  async execute(data: ICreateUserRequestDTO): Promise<string> {
     const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
@@ -38,6 +40,8 @@ export class CreateUserUseCase {
       body: process.env.EMAIL_BODY,
     });
 
-    return user;
+    const token: string = this.JWTTokenProvider.generateToken({ id: user.user_id });
+
+    return token;
   }
 }

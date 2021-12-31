@@ -11,7 +11,7 @@ export class CreateUserController {
     const { email, password, name, avatar } = request.body;
 
     try {
-      const user: User = await this.createUserUseCase.execute({
+      const token = await this.createUserUseCase.execute({
         email,
         password,
         name,
@@ -19,7 +19,7 @@ export class CreateUserController {
         authorized: false,
       });
   
-      return response.status(201).send({ id: user.user_id });
+      return response.status(201).send({ token });
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',
