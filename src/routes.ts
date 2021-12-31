@@ -2,11 +2,11 @@ import { Router } from 'express'
 
 import auth from './middlewares/auth'
 
-import { showUserController } from './useCases/ShowUser'
-import { createUserController } from './useCases/CreateUser'
-import { authenticateUserController } from './useCases/AuthenticateUser'
-import { updateUserController } from './useCases/UpdateUser'
-import { deleteUserController } from './useCases/DeleteUser'
+import { showUserController } from './usecases/ShowUser'
+import { createUserController } from './usecases/CreateUser'
+import { authenticateUserController } from './usecases/AuthenticateUser'
+import { updateUserController } from './usecases/UpdateUser'
+import { deleteUserController } from './usecases/DeleteUser'
 
 const router = Router()
 
