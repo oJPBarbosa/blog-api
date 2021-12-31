@@ -18,8 +18,8 @@ export class CreateUserUseCase {
     }
 
     data.password = hashSync(data.password, genSaltSync());
-    const user: User = new User(data);
 
+    const user: User = new User(data);
     await this.usersRepository.save(user);
 
     await this.mailProvider.sendMail({
