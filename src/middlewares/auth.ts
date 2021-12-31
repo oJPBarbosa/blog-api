@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { verify, JwtPayload } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 import { SECRET } from '../utils/auth'
 
 export default (request: Request, response: Response, next: NextFunction): Response | void => {
