@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { CreateUserUseCase } from './CreateUserUseCase'
-import { User } from '../../entities/User'
 
 export class CreateUserController {
   constructor(
