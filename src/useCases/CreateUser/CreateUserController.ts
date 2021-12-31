@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { CreateUserUseCase } from './CreateUserUseCase'
+import { User } from '../../entities/User'
 
 export class CreateUserController {
   constructor(
@@ -10,14 +11,14 @@ export class CreateUserController {
     const { email, password, name, avatar } = request.body;
 
     try {
-      await this.createUserUseCase.execute({
+      const user: User = await this.createUserUseCase.execute({
         email,
         password,
         name,
         avatar,
       });
   
-      return response.status(201).send();
+      return response.status(201).send({ id: user.id });
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',

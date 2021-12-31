@@ -10,7 +10,7 @@ export class CreateUserUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<void> {
+  async execute(data: ICreateUserRequestDTO): Promise<User> {
     const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
@@ -34,5 +34,7 @@ export class CreateUserUseCase {
       subject: 'Welcome!',
       body: '<p>Hey!<p>',
     });
+
+    return user;
   }
 }
