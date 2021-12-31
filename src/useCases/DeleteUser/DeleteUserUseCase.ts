@@ -8,7 +8,7 @@ export class DeleteUserUseCase {
   ) {}
 
   async execute(data: IDeleteUserRequestDTO): Promise<void> {
-    const user: User = await this.usersRepository.findById(data.id);
+    const user: User = await this.usersRepository.findById(data.user_id);
 
     if (!user) {
       throw new Error('User does not exists.');

@@ -7,10 +7,10 @@ export class DeleteUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body;
+    const { user_id } = request.body;
 
     try {
-      await this.deleteUserUseCase.execute({ id });
+      await this.deleteUserUseCase.execute({ user_id });
 
       return response.send();
     } catch (err) {

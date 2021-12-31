@@ -3,4 +3,5 @@ export interface ICreateUserRequestDTO {
   password: string;
   name: string;
   avatar: string;
+  authorized: boolean;
 }

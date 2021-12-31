@@ -8,7 +8,7 @@ export class UpdateUserUseCase {
   ) {}
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
-    const user: User = await this.usersRepository.findById(data.id);
+    const user: User = await this.usersRepository.findById(data.user_id);
 
     if (!user) {
       throw new Error('User does not exists.');
@@ -18,6 +18,7 @@ export class UpdateUserUseCase {
     user.email = data.email;
     user.password = data.password;
     user.avatar = data.avatar;
+    user.authorized = data.authorized;
 
     await this.usersRepository.save(user);
   }

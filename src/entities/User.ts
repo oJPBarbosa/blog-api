@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { v4 } from 'uuid'
 
 @Entity('users')
 export class User {
   
   @PrimaryGeneratedColumn('uuid')
-  public readonly id: string;
+  public readonly user_id: string;
 
   @Column()
   public email: string;
@@ -19,8 +19,17 @@ export class User {
   @Column()
   public avatar: string;
 
-  constructor(props: Omit<User, 'id'>) {
+  @Column('boolean')
+  public authorized: boolean;
+
+  @CreateDateColumn()
+  public created_at: Date;
+
+  @UpdateDateColumn()
+  public updated_at: Date;
+
+  constructor(props: Omit<User, 'user_id'>) {
     Object.assign(this, props);
-    this.id = v4();
+    this.user_id = v4();
   }
 }

@@ -1,3 +1,3 @@
 export interface IDeleteUserRequestDTO {
-  id: string;
+  user_id: string;
 }

@@ -16,9 +16,10 @@ export class CreateUserController {
         password,
         name,
         avatar,
+        authorized: false,
       });
   
-      return response.status(201).send({ id: user.id });
+      return response.status(201).send({ id: user.user_id });
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',

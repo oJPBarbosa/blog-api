@@ -17,12 +17,16 @@ export class AuthenticateUserUseCase {
       throw new Error('User does not exists.');
     }
 
+    if (!user.authorized) {
+      throw new Error('User not authorized.');
+    }
+
     const passwordMatches = await compare(data.password, user.password);
 
     if (!passwordMatches) {
       throw new Error('Invalid password.');
     }
 
-    return this.JWTTokenProvider.generateToken({ id: user.id });
+    return this.JWTTokenProvider.generateToken({ id: user.user_id });
   }
 }
