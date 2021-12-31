@@ -6,11 +6,11 @@ import { DeleteUserController } from './DeleteUserController'
 const postgresUsersRepository: IUsersRepository = new PostgresUsersRepository()
 
 const deleteUserUseCase: DeleteUserUseCase = new DeleteUserUseCase(
-  postgresUsersRepository
+  postgresUsersRepository,
 )
 
 const deleteUserController: DeleteUserController = new DeleteUserController(
-  deleteUserUseCase
+  deleteUserUseCase,
 )
 
 export { deleteUserController }

@@ -10,11 +10,11 @@ const JWTTokenProviderP: ITokenProvider = new JWTTokenProvider()
 
 const authenticateUserUseCase: AuthenticateUserUseCase = new AuthenticateUserUseCase(
   postgresUsersRepository,
-  JWTTokenProviderP
+  JWTTokenProviderP,
 )
 
 const authenticateUserController: AuthenticateUserController = new AuthenticateUserController(
-  authenticateUserUseCase
+  authenticateUserUseCase,
 )
 
 export { authenticateUserController }

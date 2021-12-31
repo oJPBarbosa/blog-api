@@ -6,11 +6,11 @@ import { UpdateUserController } from './UpdateUserController'
 const postgresUsersRepository: IUsersRepository = new PostgresUsersRepository()
 
 const updateUserUseCase: UpdateUserUseCase = new UpdateUserUseCase(
-  postgresUsersRepository
+  postgresUsersRepository,
 )
 
 const updateUserController: UpdateUserController = new UpdateUserController(
-  updateUserUseCase
+  updateUserUseCase,
 )
 
 export { updateUserController }

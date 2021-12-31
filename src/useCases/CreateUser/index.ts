@@ -10,11 +10,11 @@ const mailtrapMailProvider: IMailProvider = new MailtrapMailProvider()
 
 const createUserUseCase: CreateUserUseCase = new CreateUserUseCase(
   postgresUsersRepository,
-  mailtrapMailProvider
+  mailtrapMailProvider,
 )
 
 const createUserController = new CreateUserController(
-  createUserUseCase
+  createUserUseCase,
 )
 
 export { createUserController }
