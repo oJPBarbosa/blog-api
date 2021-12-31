@@ -5,7 +5,7 @@ import { SECRET } from '../../utils/auth'
 export class JWTTokenProvider implements ITokenProvider {
   generateToken(payload: Record<any, any>): string {
     return sign(payload, SECRET, {
-      expiresIn: 86400,
+      expiresIn: '3d',
     });
   }
 }
