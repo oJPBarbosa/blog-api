@@ -15,7 +15,6 @@ export class Posts1641049227159 implements MigrationInterface {
 					type: 'uuid',
 					isNullable: false,
 					isUnique: true,
-
 				},
 				{
 					name: 'title',
@@ -34,7 +33,7 @@ export class Posts1641049227159 implements MigrationInterface {
 				},
 				{
 					name: 'content',
-					type: 'boolean',
+					type: 'varchar',
 					isNullable: false,
 				},
 				{
