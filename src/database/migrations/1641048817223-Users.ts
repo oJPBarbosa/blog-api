@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class Users1640983926979 implements MigrationInterface {
+export class Users1641048817223 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
       name: 'users',
@@ -8,6 +8,7 @@ export class Users1640983926979 implements MigrationInterface {
         {
           name: 'user_id',
           type: 'uuid',
+          isNullable: false,
           isPrimary: true,
         },
         {
@@ -39,11 +40,13 @@ export class Users1640983926979 implements MigrationInterface {
           name: 'created_at',
           type: 'timestamp',
           default: 'NOW()',
+          isNullable: false,
         },
         {
           name: 'updated_at',
           type: 'timestamp',
           default: 'NOW()',
+          isNullable: false,
         },
       ],
     }));
