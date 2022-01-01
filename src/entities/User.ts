@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import { Post } from './Post'
 import { v4 } from 'uuid'
 
 @Entity('users')
 export class User {
-  
+
   @PrimaryGeneratedColumn('uuid')
   public readonly user_id: string;
 
@@ -27,6 +28,9 @@ export class User {
 
   @UpdateDateColumn()
   public updated_at: Date;
+
+  @OneToMany(type => Post, author_id => User)
+  posts: Post[];
 
   constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);
