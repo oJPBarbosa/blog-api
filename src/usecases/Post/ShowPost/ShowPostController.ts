@@ -1,5 +1,6 @@
 import { ShowPostUseCase } from './ShowPostUseCase'
 import { Request, Response } from 'express'
+import { Post } from '../../../entities/Post'
 
 export class ShowPostController {
   constructor(
@@ -7,23 +8,18 @@ export class ShowPostController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const post_id: string = request.params.id;
+    const { id } = request.query;
 
     try {
-      const { post, user } = await this.showPostUseCase.execute({ post_id });
+      if (!id) {
+        const posts = await this.showPostUseCase.execute({ all: true });
 
-      return response.status(200).json({ 
-        title: post.title,
-        description: post.description,
-        tags: post.tags,
-        content: post.content,
-        created_at: post.created_at,
-        updated_at: post.updated_at,
-        author: {
-          name: user.name,
-          avatar: user.avatar,
-        },
-      });
+        return response.json(posts);
+      }
+
+      const post: object[] | object = await this.showPostUseCase.execute({ post_id: id.toString() });
+
+      return response.json(post);
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',

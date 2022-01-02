@@ -10,11 +10,11 @@ export class PostgresUsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findAll(): Promise<User[] | []> {
     const repository: Repository<User> = getRepository(User);
-    const user = await repository.findOne({ where: { email } });
+    const users: User[] = await repository.find();
 
-    return user;
+    return users;
   }
 
   public async save(user: User): Promise<void> {

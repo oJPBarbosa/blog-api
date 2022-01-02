@@ -1,3 +1,4 @@
 export interface ShowUserRequestDTO {
-  user_id: string;
+  all?: boolean;
+  user_id?: string;
 }

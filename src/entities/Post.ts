@@ -13,7 +13,7 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'author_id' })
-  user?: User;
+  author?: User;
 
   @Column()
   title: string;

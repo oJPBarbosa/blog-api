@@ -1,3 +1,4 @@
 export interface ShowPostRequestDTO {
-  post_id: string;
+  all?: boolean;
+  post_id?: string;
 }

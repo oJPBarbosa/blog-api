@@ -7,19 +7,18 @@ export class ShowUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const user_id = request.params.id;
+    const { id } = request.query;
 
     try {
-      const user = await this.showUserUseCase.execute({
-        user_id,
-      });
+      if (!id) {
+        const users = await this.showUserUseCase.execute({ all: true });
 
-      return response.json({
-        email: user.email,
-        name: user.name,
-        avatar: user.avatar,
-        authorized: user.authorized,
-      });
+        return response.json(users);  
+      }
+
+      const user = await this.showUserUseCase.execute({ user_id: id.toString() });
+
+      return response.json(user);
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.',
