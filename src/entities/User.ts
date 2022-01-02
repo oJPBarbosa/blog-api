@@ -32,7 +32,7 @@ export class User {
   @OneToMany(() => Post, (post) => post.author_id)
   posts: Post[];
 
-  constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at'>) {
+  constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at' | 'posts' >) {
     Object.assign(this, props);
     this.user_id = v4();
   }
