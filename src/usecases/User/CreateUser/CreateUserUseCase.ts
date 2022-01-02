@@ -25,7 +25,7 @@ export class CreateUserUseCase {
           key: 'error',
           value: 'User already exists.',
         },
-        status: 303,
+        status: 409,
       });
     }
 
