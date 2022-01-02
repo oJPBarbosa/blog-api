@@ -8,8 +8,9 @@ import { authenticateUserController } from './usecases/AuthenticateUser'
 import { updateUserController } from './usecases/UpdateUser'
 import { deleteUserController } from './usecases/DeleteUser'
 
-import { createPostController } from './usecases/CreatePost'
 import { showPostController } from './usecases/ShowPost'
+import { createPostController } from './usecases/CreatePost'
+import { updatePostController } from './usecases/UpdatePost'
 
 const router = Router()
 
@@ -21,5 +22,6 @@ router.delete('/users', auth, (request, response) => { return deleteUserControll
 
 router.get('/posts/:id', (request, response) => { return showPostController.handle(request, response) })
 router.post('/posts', auth, (request, response) => { return createPostController.handle(request, response) })
+router.put('/posts/:id', (request, response) => { return updatePostController.handle(request, response) })
 
 export default router
