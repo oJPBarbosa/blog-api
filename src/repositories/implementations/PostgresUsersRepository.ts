@@ -1,6 +1,6 @@
 import { IUsersRepository } from '../IUsersRepository'
-import { Repository, getRepository } from 'typeorm'
 import { User } from '../../entities/User'
+import { Repository, getRepository } from 'typeorm'
 
 export class PostgresUsersRepository implements IUsersRepository {
   public async findById(user_id: string): Promise<User | undefined> {
