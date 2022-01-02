@@ -6,31 +6,31 @@ import { v4 } from 'uuid'
 export class User {
 
   @PrimaryGeneratedColumn('uuid')
-  public readonly user_id: string;
+  user_id: string;
 
   @Column()
-  public email: string;
+  email: string;
 
   @Column()
-  public password: string;
+  password: string;
 
   @Column()
-  public name: string;
+  name: string;
 
   @Column()
-  public avatar: string;
+  avatar: string;
 
   @Column('boolean')
-  public authorized: boolean;
+  authorized: boolean;
 
   @CreateDateColumn()
-  public created_at: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  public updated_at: Date;
+  updated_at: Date;
 
   @OneToMany(() => Post, (post) => post.author_id)
-  public posts: Post[];
+  posts: Post[];
 
   constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);

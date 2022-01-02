@@ -6,32 +6,32 @@ import { v4 } from 'uuid'
 export class Post {
 
   @PrimaryGeneratedColumn('uuid')
-  public readonly post_id: string;
+  post_id: string;
 
   @Column({ type: 'uuid', name: 'author_id' })
-  public author_id!: string;
+  author_id!: string;
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'author_id' })
-  public user?: User;
+  user?: User;
 
   @Column()
-  public title: string;
+  title: string;
 
   @Column()
-  public description: string;
+  description: string;
 
   @Column()
-  public tags: string;
+  tags: string;
 
   @Column()
-  public content: string;
+  content: string;
 
   @CreateDateColumn()
-  public created_at: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  public updated_at: Date;
+  updated_at: Date;
 
   constructor(props: Omit<Post, 'post_id' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);
