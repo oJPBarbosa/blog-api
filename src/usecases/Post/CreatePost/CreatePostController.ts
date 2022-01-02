@@ -1,6 +1,6 @@
 import { CreatePostUseCase } from './CreatePostUseCase'
 import { Request, Response } from 'express'
-import { Post } from '../../entities/Post'
+import { Post } from '../../../entities/Post'
 
 export class CreatePostController {
   constructor(
