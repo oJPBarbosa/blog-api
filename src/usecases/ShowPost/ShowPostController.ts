@@ -18,6 +18,7 @@ export class ShowPostController {
         tags: post.tags,
         content: post.content,
         created_at: post.created_at,
+        updated_at: post.updated_at,
         author: {
           name: user.name,
           avatar: user.avatar,
