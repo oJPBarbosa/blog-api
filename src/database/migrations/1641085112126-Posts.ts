@@ -1,39 +1,38 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
-export class Users1641048817223 implements MigrationInterface {
+export class Posts1641085112126 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'users',
+      name: 'posts',
       columns: [
         {
-          name: 'user_id',
+          name: 'post_id',
           type: 'uuid',
-          isNullable: false,
           isPrimary: true,
         },
         {
-          name: 'email',
-          type: 'varchar',
-          isNullable: false,
-          isUnique: true,
-        },
-        {
-          name: 'password',
-          type: 'varchar',
+          name: 'author_id',
+          type: 'uuid',
           isNullable: false,
         },
         {
-          name: 'name',
+          name: 'title',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'avatar',
+          name: 'description',
           type: 'varchar',
+          isNullable: false,
         },
         {
-          name: 'authorized',
-          type: 'boolean',
+          name: 'tags',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'content',
+          type: 'varchar',
           isNullable: false,
         },
         {
@@ -53,6 +52,6 @@ export class Users1641048817223 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('posts');
   }
 }

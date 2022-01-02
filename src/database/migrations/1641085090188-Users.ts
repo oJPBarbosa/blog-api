@@ -1,39 +1,40 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class Posts1641049227159 implements MigrationInterface {
+export class Users1641085090188 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'posts',
+      name: 'users',
       columns: [
         {
-          name: 'post_id',
+          name: 'user_id',
           type: 'uuid',
+          isNullable: false,
           isPrimary: true,
         },
         {
-          name: 'author_id',
-          type: 'uuid',
+          name: 'email',
+          type: 'varchar',
           isNullable: false,
           isUnique: true,
         },
         {
-          name: 'title',
+          name: 'password',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'description',
+          name: 'name',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'tags',
+          name: 'avatar',
           type: 'varchar',
-          isNullable: false,
+          isNullable: true,
         },
         {
-          name: 'content',
-          type: 'varchar',
+          name: 'authorized',
+          type: 'boolean',
           isNullable: false,
         },
         {
@@ -50,21 +51,9 @@ export class Posts1641049227159 implements MigrationInterface {
         },
       ],
     }));
-
-    await queryRunner.createForeignKey('posts', new TableForeignKey({
-      columnNames: [
-        'author_id'
-      ],
-      referencedColumnNames: [
-        'user_id'
-      ],
-      referencedTableName: 'users',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('posts');
+    await queryRunner.dropTable('users');
   }
 }
