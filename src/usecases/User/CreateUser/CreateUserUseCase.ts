@@ -3,7 +3,7 @@ import { IMailProvider } from '../../../providers/IMailProvider'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../utils/ExecuteError'
+import { ExecuteError } from '../../../exceptions/ExecuteError'
 import { genSaltSync, hashSync } from 'bcrypt'
 import dotenv from 'dotenv'
 

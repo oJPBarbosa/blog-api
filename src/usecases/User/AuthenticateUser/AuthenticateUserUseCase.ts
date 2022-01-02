@@ -1,7 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../utils/ExecuteError'
+import { ExecuteError } from '../../../exceptions/ExecuteError'
 import { compare } from 'bcrypt'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 
