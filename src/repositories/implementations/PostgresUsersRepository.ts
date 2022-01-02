@@ -22,8 +22,8 @@ export class PostgresUsersRepository implements IUsersRepository {
     await repository.save(user);
   }
 
-  public async delete(user: User): Promise<void> {
+  public async destroy(user: User): Promise<void> {
     const repository: Repository<User> = getRepository(User);
-    await repository.delete(user);
+    await repository.remove(user);
   }
 }

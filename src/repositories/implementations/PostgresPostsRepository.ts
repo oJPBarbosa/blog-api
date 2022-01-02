@@ -15,8 +15,8 @@ export class PostgresPostsRepository implements IPostsRepository {
     await repository.save(post);
   }
 
-  public async delete(post: Post): Promise<void> {
+  public async destroy(post: Post): Promise<void> {
     const repository: Repository<Post> = getRepository(Post);
-    await repository.delete(post);
+    await repository.remove(post);
   }
 }

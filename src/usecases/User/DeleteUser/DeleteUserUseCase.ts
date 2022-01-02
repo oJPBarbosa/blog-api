@@ -14,6 +14,6 @@ export class DeleteUserUseCase {
       throw new Error('User does not exists.');
     }
 
-    await this.usersRepository.delete(user);
+    await this.usersRepository.destroy(user);
   }
 }
