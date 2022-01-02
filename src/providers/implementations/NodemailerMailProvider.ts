@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export class MailtrapMailProvider implements IMailProvider {
+export class NodemailerMailProvider implements IMailProvider {
   private transporter: Mail;
 
   constructor() {
