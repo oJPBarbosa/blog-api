@@ -10,7 +10,7 @@ export class AuthenticateUserUseCase {
     private JWTTokenProvider: ITokenProvider,
   ) {}
 
-  async execute(data: IAuthenticateUserRequestDTO): Promise<string | null> {
+  async execute(data: IAuthenticateUserRequestDTO): Promise<string> {
     const user: User = await this.usersRepository.findByEmail(data.email);
 
     if (!user) {
