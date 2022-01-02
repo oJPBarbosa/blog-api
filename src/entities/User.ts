@@ -29,8 +29,8 @@ export class User {
   @UpdateDateColumn()
   public updated_at: Date;
 
-  @OneToMany(type => Post, author_id => User)
-  posts: Post[];
+  @OneToMany(() => Post, (post) => post.author_id)
+  public posts: Post[];
 
   constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { User } from './User'
 import { v4 } from 'uuid'
 
@@ -8,8 +8,12 @@ export class Post {
   @PrimaryGeneratedColumn('uuid')
   public readonly post_id: string;
 
-  @ManyToOne(type => User, posts => Post)
-  public readonly author_id: User;
+  @Column({ type: 'uuid', name: 'author_id' })
+  public author_id!: string;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  @JoinColumn({ name: 'author_id' })
+  public user?: User;
 
   @Column()
   public title: string;
