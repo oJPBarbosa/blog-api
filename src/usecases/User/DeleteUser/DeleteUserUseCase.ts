@@ -11,7 +11,7 @@ export class DeleteUserUseCase {
     const user: User = await this.usersRepository.findById(data.user_id);
 
     if (!user) {
-      throw new Error('User does not exists.');
+      throw new Error('User not found.');
     }
 
     await this.usersRepository.destroy(user);

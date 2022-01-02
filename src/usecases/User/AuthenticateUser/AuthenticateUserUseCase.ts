@@ -14,7 +14,7 @@ export class AuthenticateUserUseCase {
     const user: User = await this.usersRepository.findByEmail(data.email);
 
     if (!user) {
-      throw new Error('User does not exists.');
+      throw new Error('User not found.');
     }
 
     if (!user.authorized) {
