@@ -9,6 +9,7 @@ import { updateUserController } from './usecases/UpdateUser'
 import { deleteUserController } from './usecases/DeleteUser'
 
 import { createPostController } from './usecases/CreatePost'
+import { showPostController } from './usecases/ShowPost'
 
 const router = Router()
 
@@ -18,6 +19,7 @@ router.post('/users/auth', (request, response) => { return authenticateUserContr
 router.put('/users/:id', auth, (request, response) => { return updateUserController.handle(request, response) })
 router.delete('/users', auth, (request, response) => { return deleteUserController.handle(request, response) })
 
+router.get('/posts/:id', (request, response) => { return showPostController.handle(request, response) })
 router.post('/posts', auth, (request, response) => { return createPostController.handle(request, response) })
 
 export default router
