@@ -6,7 +6,7 @@ export class DeletePostController {
     private deleteUserUseCase: DeletePostUseCase,
   ) {}
 
-  async handle(request: Request, response: Response): Promise<void> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const post_id = request.params.id;
   
     try {
@@ -14,8 +14,8 @@ export class DeletePostController {
 
       response.status(200).send();
     } catch (err) {
-      response.status(400).send({
-        message: err.message || 'Unexpected error.',
+      return response.status(err.status).json({
+        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
       });
     }
   }

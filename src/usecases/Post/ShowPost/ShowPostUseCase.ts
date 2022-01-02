@@ -1,6 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { ShowPostRequestDTO } from './ShowPostDTO'
 import { Post } from '../../../entities/Post'
+import { ExecuteError } from '../../../utils/ExecuteError'
 
 export class ShowPostUseCase {
   constructor(
@@ -30,7 +31,13 @@ export class ShowPostUseCase {
     const post: Post = await this.postsRepository.findById(data.post_id);
 
     if (!post) {
-      throw new Error('Post not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Post not found.',
+        },
+        status: 404,
+      });
     }
 
     return {

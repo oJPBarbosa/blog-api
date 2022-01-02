@@ -14,8 +14,8 @@ export class DeleteUserController {
 
       return response.send();
     } catch (err) {
-      return response.status(400).send({
-        message: err.message || 'Unexpected error.',
+      return response.status(err.status).json({
+        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
       });
     }
   }

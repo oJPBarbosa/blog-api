@@ -1,6 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { DeletePostRequestDTO } from './DeletePostDTO'
 import { Post } from '../../../entities/Post'
+import { ExecuteError } from '../../../utils/ExecuteError'
 
 export class DeletePostUseCase {
   constructor(
@@ -11,7 +12,13 @@ export class DeletePostUseCase {
     const post: Post = await this.postsRepository.findById(data.post_id);
 
     if (!post) {
-      throw new Error('Post not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Post not found.',
+        },
+        status: 404,
+      });
     }
 
     await this.postsRepository.destroy(post);

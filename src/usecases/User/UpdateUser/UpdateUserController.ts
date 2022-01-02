@@ -6,10 +6,10 @@ export class UpdateUserController {
     private updateUserUseCase: UpdateUserUseCase,
   ) {}
 
-  async handle(req: Request, res: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const user_id = req.params.id;
-      const { name, email, password, avatar, authorized } = req.body;
+      const user_id = request.params.id;
+      const { name, email, password, avatar, authorized } = request.body;
 
       await this.updateUserUseCase.execute({
         user_id,
@@ -20,11 +20,11 @@ export class UpdateUserController {
         authorized,
       });
 
-      return res.send();
+      return response.send();
     } catch (err) {
-      return res.status(400).json({
-        message: err.message || 'Unexpected error.',
-      })
+      return response.status(err.status).json({
+        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
+      });
     }
   }
 }

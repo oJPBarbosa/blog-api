@@ -2,6 +2,7 @@ import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { CreatePostRequestDTO } from './CreatePostDTO'
 import { User } from '../../../entities/User'
+import { ExecuteError } from '../../../utils/ExecuteError'
 import { Post } from '../../../entities/Post'
 
 export class CreatePostUseCase {
@@ -16,7 +17,13 @@ export class CreatePostUseCase {
     const user: User = await this.usersRepository.findById(author_id);
 
     if (!user) {
-      throw new Error('User not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User not found.',
+        },
+        status: 404,
+      });
     }
 
     const post: Post = new Post({

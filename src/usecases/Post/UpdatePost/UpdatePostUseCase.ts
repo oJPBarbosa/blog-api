@@ -1,5 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { UpdatePostRequestDTO } from './UpdatePostDTO';
+import { ExecuteError } from '../../../utils/ExecuteError'
 
 
 export class UpdatePostUseCase {
@@ -11,7 +12,13 @@ export class UpdatePostUseCase {
     const post = await this.postsRepository.findById(data.post_id);
 
     if (!post) {
-      throw new Error('Post not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Post not found.',
+        },
+        status: 404,
+      });
     }
 
     post.title = data.title;

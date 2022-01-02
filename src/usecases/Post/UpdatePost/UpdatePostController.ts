@@ -6,7 +6,7 @@ export class UpdatePostController {
     private updatePostUseCase: UpdatePostUseCase,
   ) {}
 
-  async handle(request: Request, response: Response): Promise<void> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const post_id = request.params.id;
     const { title, description, tags, content } = request.body;
 
@@ -19,10 +19,10 @@ export class UpdatePostController {
         content,
       });
 
-      response.status(200).send();
+      return response.status(200).send();
     } catch (err) {
-      response.status(400).json({
-        message: err.message || 'Unexpected error.',
+      return response.status(err.status).json({
+        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
       });
     }
   }

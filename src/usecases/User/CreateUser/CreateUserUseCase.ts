@@ -3,6 +3,7 @@ import { IMailProvider } from '../../../providers/IMailProvider'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
+import { ExecuteError } from '../../../utils/ExecuteError'
 import { genSaltSync, hashSync } from 'bcrypt'
 import dotenv from 'dotenv'
 
@@ -19,7 +20,13 @@ export class CreateUserUseCase {
     const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
-      throw new Error('User already exists.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User already exists.',
+        },
+        status: 303,
+      });
     }
 
     data.password = hashSync(data.password, genSaltSync());

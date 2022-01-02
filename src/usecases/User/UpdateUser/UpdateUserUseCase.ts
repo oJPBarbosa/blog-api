@@ -1,6 +1,7 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
 import { UpdateUserRequestDTO } from './UpdateUserDTO'
 import { User } from '../../../entities/User'
+import { ExecuteError } from '../../../utils/ExecuteError'
 
 export class UpdateUserUseCase {
   constructor(
@@ -11,7 +12,13 @@ export class UpdateUserUseCase {
     const user: User = await this.usersRepository.findById(data.user_id);
 
     if (!user) {
-      throw new Error('User not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User not found.',
+        },
+        status: 404,
+      });
     }
 
     user.name = data.name;

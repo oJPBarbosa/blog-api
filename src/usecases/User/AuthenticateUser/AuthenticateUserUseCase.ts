@@ -1,6 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
 import { User } from '../../../entities/User'
+import { ExecuteError } from '../../../utils/ExecuteError'
 import { compare } from 'bcrypt'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 
@@ -14,11 +15,23 @@ export class AuthenticateUserUseCase {
     const user: User = await this.usersRepository.findByEmail(data.email);
 
     if (!user) {
-      throw new Error('User not found.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User not found.',
+        },
+        status: 404,
+      });
     }
 
     if (!user.authorized) {
-      throw new Error('User not authorized.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User is not authorized.',
+        },
+        status: 401,
+      });
     }
 
     const passwordMatches = await compare(data.password, user.password);
