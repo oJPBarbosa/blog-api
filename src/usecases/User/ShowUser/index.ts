@@ -1,5 +1,5 @@
-import { PostgresUsersRepository } from '../../repositories/implementations/PostgresUsersRepository'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ShowUserUseCase } from './ShowUserUseCase'
 import { ShowUserController } from './ShowUserController'
 

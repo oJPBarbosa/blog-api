@@ -1,7 +1,7 @@
-import { PostgresUsersRepository } from '../../repositories/implementations/PostgresUsersRepository'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { JWTTokenProvider } from '../../providers/implementations/JWTTokenProvider'
-import { ITokenProvider } from '../../providers/ITokenProvider'
+import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
+import { JWTTokenProvider } from '../../../providers/implementations/JWTTokenProvider'
+import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
 import { AuthenticateUserController } from './AuthenticateUserController'
 

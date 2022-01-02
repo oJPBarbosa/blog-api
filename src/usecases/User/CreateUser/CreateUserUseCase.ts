@@ -1,8 +1,8 @@
-import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { IMailProvider } from '../../providers/IMailProvider'
-import { ITokenProvider } from '../../providers/ITokenProvider'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
+import { IMailProvider } from '../../../providers/IMailProvider'
+import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
-import { User } from '../../entities/User'
+import { User } from '../../../entities/User'
 import { genSaltSync, hashSync } from 'bcrypt'
 import dotenv from 'dotenv'
 

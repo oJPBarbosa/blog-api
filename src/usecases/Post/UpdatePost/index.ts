@@ -1,5 +1,5 @@
-import { PostgresPostsRepository } from '../../repositories/implementations/PostgresPostsRepository'
-import { IPostsRepository } from '../../repositories/IPostsRepository'
+import { PostgresPostsRepository } from '../../../repositories/implementations/PostgresPostsRepository'
+import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { UpdatePostUseCase } from './UpdatePostUseCase'
 import { UpdatePostController } from './UpdatePostController'
 

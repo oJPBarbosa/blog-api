@@ -1,8 +1,8 @@
-import { IPostsRepository } from '../../repositories/IPostsRepository'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IPostsRepository } from '../../../repositories/IPostsRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ShowPostRequestDTO } from './ShowPostDTO'
-import { Post } from '../../entities/Post'
-import { User } from '../../entities/User'
+import { Post } from '../../../entities/Post'
+import { User } from '../../../entities/User'
 
 export class ShowPostUseCase {
   constructor(

@@ -1,6 +1,6 @@
-import { IPostsRepository } from '../../repositories/IPostsRepository'
+import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { CreatePostRequestDTO } from './CreatePostDTO'
-import { Post } from '../../entities/Post'
+import { Post } from '../../../entities/Post'
 
 export class CreatePostUseCase {
   constructor(

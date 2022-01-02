@@ -1,6 +1,6 @@
-import { PostgresUsersRepository } from '../../repositories/implementations/PostgresUsersRepository'
+import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
 import { UpdateUserRequestDTO } from './UpdateUserDTO'
-import { User } from '../../entities/User'
+import { User } from '../../../entities/User'
 
 export class UpdateUserUseCase {
   constructor(

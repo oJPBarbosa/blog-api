@@ -2,15 +2,15 @@ import { Router } from 'express'
 
 import auth from './middlewares/auth'
 
-import { showUserController } from './usecases/ShowUser'
-import { createUserController } from './usecases/CreateUser'
-import { authenticateUserController } from './usecases/AuthenticateUser'
-import { updateUserController } from './usecases/UpdateUser'
-import { deleteUserController } from './usecases/DeleteUser'
+import { showUserController } from './usecases/User/ShowUser'
+import { createUserController } from './usecases/User/CreateUser'
+import { authenticateUserController } from './usecases/User/AuthenticateUser'
+import { updateUserController } from './usecases/User/UpdateUser'
+import { deleteUserController } from './usecases/User/DeleteUser'
 
-import { showPostController } from './usecases/ShowPost'
-import { createPostController } from './usecases/CreatePost'
-import { updatePostController } from './usecases/UpdatePost'
+import { showPostController } from './usecases/Post/ShowPost'
+import { createPostController } from './usecases/Post/CreatePost'
+import { updatePostController } from './usecases/Post/UpdatePost'
 
 const router = Router()
 

@@ -1,4 +1,4 @@
-import { IPostsRepository } from '../../repositories/IPostsRepository'
+import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { UpdatePostRequestDTO } from './UpdatePostDTO';
 
 

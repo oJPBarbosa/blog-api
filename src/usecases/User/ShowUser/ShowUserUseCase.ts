@@ -1,6 +1,6 @@
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ShowUserRequestDTO } from './ShowUserDTO'
-import { User } from '../../entities/User'
+import { User } from '../../../entities/User'
 
 export class ShowUserUseCase {
   constructor(

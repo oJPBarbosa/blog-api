@@ -1,8 +1,8 @@
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
-import { User } from '../../entities/User'
+import { User } from '../../../entities/User'
 import { compare } from 'bcrypt'
-import { ITokenProvider } from '../../providers/ITokenProvider'
+import { ITokenProvider } from '../../../providers/ITokenProvider'
 
 export class AuthenticateUserUseCase {
   constructor(
