@@ -4,8 +4,11 @@
   "author": "João Pedro Ferreira Barbosa <joaopedrofbarbosa@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node --transpile-only src/server.ts",
+    "start": "node build/server.js",
+    "start:dev": "ts-node src/server.ts",
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "build": "tsc",
+    "postinstall": "yarn run build",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
