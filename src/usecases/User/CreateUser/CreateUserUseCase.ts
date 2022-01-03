@@ -1,10 +1,9 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../exceptions/ExecuteError'
-import { genSaltSync, hashSync } from 'bcrypt'
+import { hashSync, genSaltSync } from 'bcrypt'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -13,10 +12,9 @@ export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
     private mailProvider: IMailProvider,
-    private JWTTokenProvider: ITokenProvider,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<{ user: User; token: string }> {
+  async execute(data: ICreateUserRequestDTO): Promise<User> {
     const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
@@ -47,8 +45,6 @@ export class CreateUserUseCase {
       body: process.env.EMAIL_BODY,
     });
 
-    const token: string = this.JWTTokenProvider.generateToken({ id: user.user_id });
-
-    return { user, token };
+    return user;
   }
 }
