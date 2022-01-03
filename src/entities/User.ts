@@ -23,6 +23,12 @@ export class User {
   @Column('boolean')
   authorized: boolean;
 
+  @Column('boolean')
+  verified: boolean;
+
+  @Column('boolean')
+  root: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -32,7 +38,14 @@ export class User {
   @OneToMany(() => Post, (post) => post.author_id)
   posts: Post[];
 
-  constructor(props: Omit<User, 'user_id' | 'created_at' | 'updated_at' | 'posts' >) {
+  constructor(props: Omit<User, 
+    'user_id' |
+    'authorized' |
+    'verified' |
+    'root' |
+    'created_at' |
+    'updated_at' |
+    'posts' >) {
     Object.assign(this, props);
     this.user_id = v4();
   }

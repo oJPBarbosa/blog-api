@@ -5,4 +5,6 @@ export interface UpdateUserRequestDTO {
   password?: string;
   avatar?: string;
   authorized?: boolean;
+  verified?: boolean;
+  root?: boolean;
 }

@@ -26,6 +26,8 @@ export class UpdateUserUseCase {
     user.password = data.password;
     user.avatar = data.avatar;
     user.authorized = data.authorized;
+    user.verified = data.verified;
+    user.root = data.root;
     user.updated_at = new Date();
 
     await this.usersRepository.save(user);

@@ -16,7 +16,6 @@ export class CreateUserController {
         password,
         name,
         avatar,
-        authorized: false,
       });
   
       return response.status(201).json({ id: user.user_id });

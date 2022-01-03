@@ -9,7 +9,7 @@ export class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     try {
       const user_id = request.params.id;
-      const { name, email, password, avatar, authorized } = request.body;
+      const { name, email, password, avatar, authorized, verified, root } = request.body;
 
       await this.updateUserUseCase.execute({
         user_id,
@@ -18,6 +18,8 @@ export class UpdateUserController {
         password,
         avatar,
         authorized,
+        verified, 
+        root,
       });
 
       return response.send();
