@@ -21,6 +21,7 @@ export class ShowPostController {
 
       return response.json(post);
     } catch (err) {
+      console.log(err);
       return response.status(err.status).json({
         [err._message.key || 'error']: err._message.value || 'Unexpected error.',
       });
