@@ -13,7 +13,7 @@ import { createPostController } from './usecases/Post/CreatePost'
 import { updatePostController } from './usecases/Post/UpdatePost'
 import { deletePostController } from './usecases/Post/DeletePost'
 
-const router = Router()
+const router: Router = Router()
 
 router.get('/users', (request, response) => { return showUserController.handle(request, response) })
 router.post('/users', (request, response) => { return createUserController.handle(request, response) })
