@@ -11,6 +11,7 @@ export class NodemailerMailProvider implements IMailProvider {
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: process.env.NODEMAILER_TRANSPORTER_HOST,
+      secure: true,
       port: Number(process.env.NODEMAILER_TRANSPORTER_PORT),
       auth: {
         user: process.env.NODEMAILER_TRANSPORTER_USERNAME,
