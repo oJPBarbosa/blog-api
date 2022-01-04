@@ -20,7 +20,7 @@ export class CreateUserController {
   
       return response.status(201).json({ id: user.user_id });
     } catch (err) {
-      return response.status(err.status).json({
+      return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
         [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
       });
     }
