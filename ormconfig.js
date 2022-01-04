@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const dir = process.env.NODE_ENV === 'production' ? './build' : './src';
+
 const config = {
   type: 'postgres',
   host: process.env.DATABASE_HOST,
@@ -8,13 +10,13 @@ const config = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
   entities: [
-    process.env.NODE_ENV === 'production' ? './build' : './src' + '/entities/*{.ts,.js}'
+    dir + '/entities/*{.ts,.js}'
   ],
   migrations: [
-    process.env.NODE_ENV === 'production' ? './build' : './src' + '/database/migrations/*{.ts,.js}'
+    dir + '/database/migrations/*{.ts,.js}'
   ],
   cli: {
-    migrationsDir: process.env.NODE_ENV === 'production' ? './build' : './src' + '/database/migrations',
+    migrationsDir: dir + '/database/migrations',
   },
   ssl: {
     rejectUnauthorized: false,
