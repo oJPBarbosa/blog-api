@@ -18,7 +18,7 @@ export class AuthenticateUserController {
       return response.json({ token });
     } catch (err) {
       return response.status(err.status).json({
-        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
+        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
       });
     }
   }

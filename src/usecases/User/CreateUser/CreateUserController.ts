@@ -21,7 +21,7 @@ export class CreateUserController {
       return response.status(201).json({ id: user.user_id });
     } catch (err) {
       return response.status(err.status).json({
-        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
+        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
       });
     }
   }

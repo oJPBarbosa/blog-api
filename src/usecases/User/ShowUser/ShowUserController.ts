@@ -21,7 +21,7 @@ export class ShowUserController {
       return response.json(user);
     } catch (err) {
       return response.status(err.status).json({
-        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
+        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
       });
     }
   }

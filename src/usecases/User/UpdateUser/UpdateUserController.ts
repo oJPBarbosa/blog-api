@@ -25,7 +25,7 @@ export class UpdateUserController {
       return response.send();
     } catch (err) {
       return response.status(err.status).json({
-        [err._message.key || 'error']: err._message.value || 'Unexpected error.',
+        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
       });
     }
   }
