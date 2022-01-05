@@ -7,10 +7,10 @@ export class VerifyUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { token } = request.params;
+    const { token } = request.query;
 
     try {
-      await this.verifyUserUseCase.execute({ token });
+      await this.verifyUserUseCase.execute({ token: token.toString() });
 
       return response.json();
     } catch (err) {

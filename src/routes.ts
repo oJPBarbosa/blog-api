@@ -17,7 +17,7 @@ import { deletePostController } from './usecases/Post/DeletePost'
 const router: Router = Router()
 
 router.get('/users', (request, response) => { return showUserController.handle(request, response) })
-router.get('/users/verify/:token', (request, response) => { verifyUserController.handle(request, response) })
+router.get('/users/verify', (request, response) => { verifyUserController.handle(request, response) })
 router.post('/users', (request, response) => { return createUserController.handle(request, response) })
 router.post('/users/auth', (request, response) => { return authenticateUserController.handle(request, response) })
 router.put('/users/:id', auth, (request, response) => { return updateUserController.handle(request, response) })
