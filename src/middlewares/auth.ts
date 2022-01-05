@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
-import { SECRET } from '../utils/auth'
+import { USER_SESSION_SECRET } from '../utils/secrets'
 
 export default (request: Request, response: Response, next: NextFunction): Response | void => {
   const authHeader: string = request.headers.authorization
@@ -12,7 +12,7 @@ export default (request: Request, response: Response, next: NextFunction): Respo
   const [, token] = authHeader.split(' ')
 
   try {
-    verify(token, SECRET)
+    verify(token, USER_SESSION_SECRET)
 
     return next()
   } catch (err) {
