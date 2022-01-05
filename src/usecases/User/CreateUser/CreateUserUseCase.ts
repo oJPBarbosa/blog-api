@@ -53,18 +53,28 @@ export class CreateUserUseCase {
 
     const token = this.tokenProvider.generateToken({ id: user.user_id }, USER_VERIFICATION_SECRET, false);
 
-    await this.mailProvider.sendMail({
-      to: {
-        email: email,
-        name: name,
-      },
-      from: {
-        email: process.env.EMAIL_USER_VERIFICATION_ADDRESS,
-        name: process.env.EMAIL_USER_VERIFICATION_NAME,
-      },
-      subject: process.env.EMAIL_USER_VERIFICATION_SUBJECT.replace('{name}', name.split(' ')[0]),
-      body: ((process.env.EMAIL_USER_VERIFICATION_BODY.replace('{name}', name.split(' ')[0])).replace('{token}', token)).replace('{token}', token),
-    });
+    try {
+      await this.mailProvider.sendMail({
+        to: {
+          email: email,
+          name: name,
+        },
+        from: {
+          email: process.env.NOREPLY_EMAIL_ADDRESS,
+          name: process.env.NOREPLY_EMAIL_NAME,
+        },
+        subject: process.env.USER_VERIFICATION_EMAIL_SUBJECT.replace('{name}', name.split(' ')[0]),
+        body: ((process.env.USER_VERIFICATION_EMAIL_BODY.replace('{name}', name)).replace('{token}', token)).replace('{token}', token),
+      });
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Unexpected error ocurred while sending an email.',
+        },
+        status: 500,
+      });
+    }
 
     return user;
   }
