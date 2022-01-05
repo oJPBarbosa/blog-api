@@ -3,7 +3,7 @@ import { IMailProvider } from '../../../providers/IMailProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../exceptions/ExecuteError'
-import { hashSync, genSaltSync } from 'bcrypt'
+import { hash, genSalt } from 'bcrypt'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -27,7 +27,7 @@ export class CreateUserUseCase {
       });
     }
 
-    data.password = hashSync(data.password, genSaltSync());
+    data.password = await hash(data.password, await genSalt(16));
 
     const user: User = new User(data);
     await this.usersRepository.save(user);
