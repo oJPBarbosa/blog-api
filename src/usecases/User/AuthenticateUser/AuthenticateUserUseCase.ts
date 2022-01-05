@@ -9,7 +9,7 @@ import { USER_SESSION_SECRET } from '../../../utils/secrets'
 export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
-    private JWTTokenProvider: ITokenProvider,
+    private tokenProvider: ITokenProvider,
   ) {}
 
   async execute(data: IAuthenticateUserRequestDTO): Promise<string> {
@@ -49,6 +49,6 @@ export class AuthenticateUserUseCase {
       });
     }
 
-    return this.JWTTokenProvider.generateToken({ id: user.user_id, root: user.root }, USER_SESSION_SECRET, KMSI);
+    return this.tokenProvider.generateToken({ id: user.user_id, root: user.root }, USER_SESSION_SECRET, KMSI);
   }
 }
