@@ -27,6 +27,16 @@ export class AuthenticateUserUseCase {
       });
     }
 
+    if (!user.verified) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'User is not verified.',
+        },
+        status: 401,
+      });
+    }
+
     if (!user.authorized) {
       throw new ExecuteError({
         _message: {

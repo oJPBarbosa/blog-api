@@ -25,7 +25,7 @@ export class ShowUserUseCase {
           authorized: user.authorized,
           verified: user.verified,
           root: user.root,
-        }
+        };
       });
     }
 
