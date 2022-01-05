@@ -13,6 +13,8 @@ import { verifyUserController } from './usecases/User/VerifyUser'
 import { createPostController } from './usecases/Post/CreatePost'
 import { updatePostController } from './usecases/Post/UpdatePost'
 import { deletePostController } from './usecases/Post/DeletePost'
+import { upvotePostController } from './usecases/Post/UpvotePost'
+import { downvotePostController } from './usecases/Post/DownvotePost'
 
 const router: Router = Router()
 
@@ -26,6 +28,8 @@ router.delete('/users/:id', auth, (request, response) => { return deleteUserCont
 router.get('/posts', (request, response) => { return showPostController.handle(request, response) })
 router.post('/posts', auth, (request, response) => { return createPostController.handle(request, response) })
 router.put('/posts/:id', auth, (request, response) => { return updatePostController.handle(request, response) })
+router.put('/posts/upvote/:id', (request, response) => { return upvotePostController.handle(request, response) })
+router.put('/posts/downvote/:id', (request, response) => { return downvotePostController.handle(request, response) })
 router.delete('/posts/:id', auth, (request, response) => { return deletePostController.handle(request, response) })
 
 export default router
