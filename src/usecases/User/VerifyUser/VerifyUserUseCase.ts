@@ -96,6 +96,7 @@ export class VerifyUserUseCase {
         body: ((process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_BODY
           .replace('{user.email}', user.email))
           .replace('{user.name}', user.name))
+          .replace('{request.date}', new Date().toISOString()),
       });
     } catch (err) {
       throw new ExecuteError({
