@@ -39,7 +39,7 @@ export class ShowPostUseCase {
               pt: post.author?.biography_pt,
             },
           },
-        }
+        };
       });
     }
 
