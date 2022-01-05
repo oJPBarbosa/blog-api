@@ -9,49 +9,89 @@ export class ShowUserUseCase {
   ) {}
 
   async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
-    const { all, user_id } = data;
+    const { user_id, authorized } = data;
 
-    if (all) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        return {
-          id: user.user_id,
-          email: user.email,
-          name: user.name,
-          avatar: user.avatar,
-          biography: {
-            en: user.biography_en,
-            pt: user.biography_pt,
+    if (user_id) {
+      const user: User = await this.usersRepository.findById(user_id);
+
+      if (!user) {
+        throw new ExecuteError({
+          _message: {
+            key: 'error',
+            value: 'User not found.',
           },
-          authorized: user.authorized,
-          verified: user.verified,
-          root: user.root,
+          status: 404,
+        });
+      }
+
+      return { 
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        biography: {
+          en: user.biography_en,
+          pt: user.biography_pt,
+        },
+        authorized: user.authorized,
+        verified: user.verified,
+        root: user.root,
+      };
+    }
+
+    if (authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (user.authorized === true) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          }
         }
       });
     }
 
-    const user: User = await this.usersRepository.findById(user_id);
-
-    if (!user) {
-      throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User not found.',
-        },
-        status: 404,
+    if (authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (user.authorized === false) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          }
+        }
       });
     }
 
-    return { 
-      email: user.email,
-      name: user.name,
-      avatar: user.avatar,
-      biography: {
-        en: user.biography_en,
-        pt: user.biography_pt,
-      },
-      authorized: user.authorized,
-      verified: user.verified,
-      root: user.root,
-    };
+    return (await this.usersRepository.findAll()).map((user: User) => {
+      return {
+        id: user.user_id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        biography: {
+          en: user.biography_en,
+          pt: user.biography_pt,
+        },
+        authorized: user.authorized,
+        verified: user.verified,
+        root: user.root,
+      }
+    });
   }
 }
