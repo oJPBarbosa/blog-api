@@ -27,6 +27,7 @@ export class ShowPostUseCase {
             tags: post.tags_pt,
             content: post.content_pt,
           },
+          votes: post.votes,
           created_at: post.created_at,
           updated_at: post.updated_at,
           author: {
@@ -68,6 +69,7 @@ export class ShowPostUseCase {
         tags: post.tags_pt,
         content: post.content_pt,
       },
+      votes: post.votes,
       created_at: post.created_at,
       updated_at: post.updated_at,
       author: {

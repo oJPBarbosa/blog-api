@@ -9,4 +9,5 @@ export interface UpdatePostRequestDTO {
   post_id: string;
   en?: IPostData;
   pt?: IPostData;
+  votes?: number;
 }

@@ -8,11 +8,7 @@ export class CreatePostController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { 
-      author_id, 
-      en,
-      pt,
-    } = request.body;
+    const { author_id, en, pt } = request.body;
 
     try {
       const post: Post = await this.createPostUseCase.execute({

@@ -12,7 +12,7 @@ export class DeleteUserController {
     try {
       await this.deleteUserUseCase.execute({ user_id });
 
-      return response.send();
+      return response.json({ message: 'User deleted.' });
     } catch (err) {
       return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
         [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',

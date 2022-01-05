@@ -9,7 +9,7 @@ export class UpdatePostUseCase {
   ) {}
 
   async execute(data: UpdatePostRequestDTO): Promise<void> {
-    const { post_id, en, pt } = data;
+    const { post_id, en, pt, votes } = data;
 
     const post = await this.postsRepository.findById(post_id);
 
@@ -31,6 +31,7 @@ export class UpdatePostUseCase {
     post.tags_pt = pt?.tags;
     post.content_en = en?.content;
     post.content_pt = pt?.content;
+    post.votes = votes;
     post.updated_at = new Date();
 
     await this.postsRepository.save(post);

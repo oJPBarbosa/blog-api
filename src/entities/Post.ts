@@ -39,13 +39,21 @@ export class Post {
   @Column()
   content_pt: string;
 
+  @Column('int')
+  votes: number;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 
-  constructor(props: Omit<Post, 'post_id' | 'author' | 'created_at' | 'updated_at'>) {
+  constructor(props: Omit<Post,
+    'post_id' |
+    'author' |
+    'votes' |
+    'created_at'|
+    'updated_at'>) {
     Object.assign(this, props);
     this.post_id = v4();
   }

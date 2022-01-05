@@ -8,16 +8,17 @@ export class UpdatePostController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const post_id = request.params.id;
-    const { en, pt } = request.body;
+    const { en, pt, votes } = request.body;
 
     try {
       await this.updatePostUseCase.execute({
         post_id,
         en,
         pt,
+        votes,
       });
 
-      return response.status(200).send();
+      return response.json({ message: 'Post updated.'});
     } catch (err) {
       return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
         [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
