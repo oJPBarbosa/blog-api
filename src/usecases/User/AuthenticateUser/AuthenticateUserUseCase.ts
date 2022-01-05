@@ -12,7 +12,9 @@ export class AuthenticateUserUseCase {
   ) {}
 
   async execute(data: IAuthenticateUserRequestDTO): Promise<string> {
-    const user: User = await this.usersRepository.findByEmail(data.email);
+    const { email, password, KMSI } = data;
+
+    const user: User = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new ExecuteError({
@@ -34,7 +36,7 @@ export class AuthenticateUserUseCase {
       });
     }
 
-    const passwordMatches = await compare(data.password, user.password);
+    const passwordMatches = await compare(password, user.password);
 
     if (!passwordMatches) {
       throw new ExecuteError({
@@ -46,6 +48,6 @@ export class AuthenticateUserUseCase {
       });
     }
 
-    return this.JWTTokenProvider.generateToken({ id: user.user_id });
+    return this.JWTTokenProvider.generateToken({ id: user.user_id, root: user.root }, KMSI);
   }
 }

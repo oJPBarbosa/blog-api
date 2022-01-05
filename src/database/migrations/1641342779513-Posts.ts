@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
-export class Posts1641255374542 implements MigrationInterface {
+export class Posts1641342779513 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
       name: 'posts',
@@ -16,22 +16,42 @@ export class Posts1641255374542 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'title',
+          name: 'title_en',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'description',
+          name: 'title_pt',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'tags',
+          name: 'description_en',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'content',
+          name: 'description_pt',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'tags_en',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'tags_pt',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'content_en',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'content_pt',
           type: 'varchar',
           isNullable: false,
         },

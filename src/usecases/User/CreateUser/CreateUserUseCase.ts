@@ -15,7 +15,15 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<User> {
-    const userAlreadyExists: User = await this.usersRepository.findByEmail(data.email);
+    const { 
+      email, 
+      password,
+      name,
+      avatar,
+      biography,
+    } = data;
+
+    const userAlreadyExists: User = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
       throw new ExecuteError({
@@ -27,9 +35,17 @@ export class CreateUserUseCase {
       });
     }
 
-    data.password = await hash(data.password, await genSalt(16));
+    const hashedPassword = await hash(password, await genSalt(16));
 
-    const user: User = new User(data);
+    const user: User = new User({
+      email,
+      password: hashedPassword,
+      name,
+      avatar,
+      biography_en: biography?.en,
+      biography_pt: biography?.pt,
+    });
+
     await this.usersRepository.save(user);
 
     await this.mailProvider.sendMail({

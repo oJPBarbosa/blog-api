@@ -13,19 +13,31 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'author_id' })
-  author?: User;
+  author: User;
 
   @Column()
-  title: string;
+  title_en: string;
 
   @Column()
-  description: string;
+  title_pt: string;
 
   @Column()
-  tags: string;
+  description_en: string;
 
   @Column()
-  content: string;
+  description_pt: string;
+
+  @Column()
+  tags_en: string;
+
+  @Column()
+  tags_pt: string;
+
+  @Column()
+  content_en: string;
+
+  @Column()
+  content_pt: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -33,7 +45,7 @@ export class Post {
   @UpdateDateColumn()
   updated_at: Date;
 
-  constructor(props: Omit<Post, 'post_id' | 'created_at' | 'updated_at'>) {
+  constructor(props: Omit<Post, 'post_id' | 'author' | 'created_at' | 'updated_at'>) {
     Object.assign(this, props);
     this.post_id = v4();
   }

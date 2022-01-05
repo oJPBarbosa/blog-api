@@ -9,12 +9,18 @@ export class ShowUserUseCase {
   ) {}
 
   async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
-    if (data.all) {
+    const { all, user_id } = data;
+
+    if (all) {
       return (await this.usersRepository.findAll()).map((user: User) => {
         return {
           id: user.user_id,
           name: user.name,
           avatar: user.avatar,
+          biography: {
+            en: user.biography_en,
+            pt: user.biography_pt,
+          },
           authorized: user.authorized,
           verified: user.verified,
           root: user.root,
@@ -22,7 +28,7 @@ export class ShowUserUseCase {
       });
     }
 
-    const user: User = await this.usersRepository.findById(data.user_id);
+    const user: User = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new ExecuteError({
@@ -38,6 +44,10 @@ export class ShowUserUseCase {
       email: user.email,
       name: user.name,
       avatar: user.avatar,
+      biography: {
+        en: user.biography_en,
+        pt: user.biography_pt,
+      },
       authorized: user.authorized,
       verified: user.verified,
       root: user.root,

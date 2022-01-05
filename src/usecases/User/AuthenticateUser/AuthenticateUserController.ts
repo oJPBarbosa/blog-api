@@ -7,12 +7,13 @@ export class AuthenticateUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
+    const { email, password, KMSI } = request.body;
 
     try {
       const token = await this.authenticateUserUseCase.execute({
         email,
         password,
+        KMSI,
       });
 
       return response.json({ token });

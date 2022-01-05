@@ -1,3 +1,3 @@
 export interface ITokenProvider {
-  generateToken(payload: Record<any, any>): string;
+  generateToken(payload: Record<any, any>, KMSI: boolean): string;
 }

@@ -9,7 +9,19 @@ export class UpdateUserUseCase {
   ) {}
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
-    const user: User = await this.usersRepository.findById(data.user_id);
+    const {
+      user_id,
+      name,
+      email,
+      password,
+      avatar,
+      biography,
+      authorized,
+      verified,
+      root,
+    } = data;
+
+    const user: User = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new ExecuteError({
@@ -21,13 +33,15 @@ export class UpdateUserUseCase {
       });
     }
 
-    user.name = data.name;
-    user.email = data.email;
-    user.password = data.password;
-    user.avatar = data.avatar;
-    user.authorized = data.authorized;
-    user.verified = data.verified;
-    user.root = data.root;
+    user.name = name;
+    user.email = email;
+    user.password = password;
+    user.avatar = avatar;
+    user.biography_en = biography?.en;
+    user.biography_pt = biography?.pt;
+    user.authorized = authorized;
+    user.verified = verified;
+    user.root = root;
     user.updated_at = new Date();
 
     await this.usersRepository.save(user);

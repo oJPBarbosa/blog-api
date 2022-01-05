@@ -9,7 +9,9 @@ export class UpdatePostUseCase {
   ) {}
 
   async execute(data: UpdatePostRequestDTO): Promise<void> {
-    const post = await this.postsRepository.findById(data.post_id);
+    const { post_id, en, pt } = data;
+
+    const post = await this.postsRepository.findById(post_id);
 
     if (!post) {
       throw new ExecuteError({
@@ -21,10 +23,14 @@ export class UpdatePostUseCase {
       });
     }
 
-    post.title = data.title;
-    post.description = data.description;
-    post.tags = data.tags; 
-    post.content = data.content;
+    post.title_en = en?.title;
+    post.title_pt = pt?.title;
+    post.description_en = en?.description;
+    post.description_pt = pt?.description;
+    post.tags_en = en?.tags;
+    post.tags_pt = pt?.tags;
+    post.content_en = en?.content;
+    post.content_pt = pt?.content;
     post.updated_at = new Date();
 
     await this.postsRepository.save(post);

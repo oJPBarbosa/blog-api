@@ -12,7 +12,7 @@ export class CreatePostUseCase {
   ) {}
 
   async execute(data: CreatePostRequestDTO): Promise<Post> {
-    const { author_id, title, description, tags, content } = data;
+    const { author_id, en, pt } = data;
 
     const user: User = await this.usersRepository.findById(author_id);
 
@@ -28,10 +28,14 @@ export class CreatePostUseCase {
 
     const post: Post = new Post({
       author_id,
-      title,
-      description,
-      tags,
-      content,
+      title_en: en.title,
+      title_pt: pt.title,
+      description_en: en.description,
+      description_pt: pt.description,
+      tags_en: en.tags,
+      tags_pt: pt.tags,
+      content_en: en.content,
+      content_pt: pt.content,
     });
 
     await this.postsRepository.save(post);

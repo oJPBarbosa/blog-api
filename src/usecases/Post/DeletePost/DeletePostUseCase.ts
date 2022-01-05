@@ -9,7 +9,9 @@ export class DeletePostUseCase {
   ) {}
 
   async execute(data: DeletePostRequestDTO): Promise<void> {
-    const post: Post = await this.postsRepository.findById(data.post_id);
+    const { post_id } = data;
+
+    const post: Post = await this.postsRepository.findById(post_id);
 
     if (!post) {
       throw new ExecuteError({

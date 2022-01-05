@@ -20,6 +20,12 @@ export class User {
   @Column()
   avatar: string;
 
+  @Column()
+  biography_en: string;
+
+  @Column()
+  biography_pt: string;
+
   @Column('boolean')
   authorized: boolean;
 
