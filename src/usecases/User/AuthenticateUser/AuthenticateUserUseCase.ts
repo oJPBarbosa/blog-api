@@ -37,7 +37,13 @@ export class AuthenticateUserUseCase {
     const passwordMatches = await compare(data.password, user.password);
 
     if (!passwordMatches) {
-      throw new Error('Invalid password.');
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Invalid password.',
+        },
+        status: 401,
+      });
     }
 
     return this.JWTTokenProvider.generateToken({ id: user.user_id });
