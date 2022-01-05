@@ -9,7 +9,25 @@ export class ShowUserUseCase {
   ) {}
 
   async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
-    const { user_id, authorized } = data;
+    const { all, user_id, verified, authorized } = data;
+
+    if (all) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        return {
+          id: user.user_id,
+          email: user.email,
+          name: user.name,
+          avatar: user.avatar,
+          biography: {
+            en: user.biography_en,
+            pt: user.biography_pt,
+          },
+          authorized: user.authorized,
+          verified: user.verified,
+          root: user.root,
+        }
+      });
+    }
 
     if (user_id) {
       const user: User = await this.usersRepository.findById(user_id);
@@ -38,9 +56,9 @@ export class ShowUserUseCase {
       };
     }
 
-    if (authorized) {
+    if (verified && authorized) {
       return (await this.usersRepository.findAll()).map((user: User) => {
-        if (user.authorized === true) {
+        if (user.verified && user.authorized) {
           return {
             id: user.user_id,
             email: user.email,
@@ -53,14 +71,14 @@ export class ShowUserUseCase {
             authorized: user.authorized,
             verified: user.verified,
             root: user.root,
-          }
+          };
         }
-      });
+      }).filter((user: object) => { if (user !== null) return user });
     }
 
-    if (authorized) {
+    if (!verified && !authorized) {
       return (await this.usersRepository.findAll()).map((user: User) => {
-        if (user.authorized === false) {
+        if (!user.verified && !user.authorized) {
           return {
             id: user.user_id,
             email: user.email,
@@ -73,25 +91,129 @@ export class ShowUserUseCase {
             authorized: user.authorized,
             verified: user.verified,
             root: user.root,
-          }
+          };
         }
-      });
+      }).filter((user: object) => { if (user !== null) return user });
     }
 
-    return (await this.usersRepository.findAll()).map((user: User) => {
-      return {
-        id: user.user_id,
-        email: user.email,
-        name: user.name,
-        avatar: user.avatar,
-        biography: {
-          en: user.biography_en,
-          pt: user.biography_pt,
-        },
-        authorized: user.authorized,
-        verified: user.verified,
-        root: user.root,
-      }
-    });
+    if (verified && !authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (user.verified && !user.authorized) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      }).filter((user: object) => { if (user !== null) return user });
+    }
+
+    if (!verified && authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (!user.verified && user.authorized) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      }).filter((user: object) => { if (user !== null) return user });
+    }
+
+    if (verified) {
+      return ((await this.usersRepository.findAll()).map((user: User) => {
+        if (user.verified) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      })).filter((user: object) => { if (user !== null) return user });
+    }
+
+    if (!verified) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (!user.verified) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      }).filter((user: object) => { if (user !== null) return user });
+    }
+
+    if (authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (user.authorized) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      }).filter((user: object) => { if (user !== null) return user });
+    }
+
+    if (!authorized) {
+      return (await this.usersRepository.findAll()).map((user: User) => {
+        if (!user.authorized) {
+          return {
+            id: user.user_id,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar,
+            biography: {
+              en: user.biography_en,
+              pt: user.biography_pt,
+            },
+            authorized: user.authorized,
+            verified: user.verified,
+            root: user.root,
+          };
+        }
+      }).filter((user: object) => { if (user !== null) return user });
+    }
   }
 }

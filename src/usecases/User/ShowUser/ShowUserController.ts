@@ -7,7 +7,7 @@ export class ShowUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { id, authorized } = request.query;
+    const { id, verified, authorized } = request.query;
 
     try {
       if (id) {
@@ -16,15 +16,16 @@ export class ShowUserController {
         return response.json(user);
       }
 
-      if (authorized) {
-        const users = await this.showUserUseCase.execute({
-          authorized: authorized.toString() === 'true' ? true : false,
+      if (verified || authorized) {
+        const users = await this.showUserUseCase.execute({ 
+          verified: verified?.toString() === 'true', 
+          authorized: authorized?.toString() === 'true',
         });
 
         return response.json(users);
       }
 
-      const users = await this.showUserUseCase.execute({});
+      const users = await this.showUserUseCase.execute({ all: true });
 
       return response.json(users);
     } catch (err) {
