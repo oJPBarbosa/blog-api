@@ -1,19 +1,22 @@
+import dotenv from 'dotenv';
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
+import { IMailProvider } from '../../../providers/IMailProvider'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../exceptions/ExecuteError'
 import { compare } from 'bcrypt'
-import { USER_SESSION_SECRET } from '../../../utils/secrets'
+import speakeasy from 'speakeasy'
+
+dotenv.config()
 
 export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
-    private tokenProvider: ITokenProvider,
+    private mailProvider: IMailProvider,
   ) {}
 
   async execute(data: IAuthenticateUserRequestDTO): Promise<string> {
-    const { email, password, KMSI } = data;
+    const { email, password } = data;
 
     const user: User = await this.usersRepository.findByEmail(email);
 
@@ -27,21 +30,11 @@ export class AuthenticateUserUseCase {
       });
     }
 
-    if (!user.verified) {
+    if (!user.verified || !user.authorized) {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: 'User is not verified.',
-        },
-        status: 401,
-      });
-    }
-
-    if (!user.authorized) {
-      throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User is not authorized.',
+          value: `User is not ${user.verified ? 'authorized' : 'verified'}.`,
         },
         status: 401,
       });
@@ -59,6 +52,32 @@ export class AuthenticateUserUseCase {
       });
     }
 
-    return this.tokenProvider.generateToken({ id: user.user_id, root: user.root }, USER_SESSION_SECRET, KMSI);
+    try {
+      await this.mailProvider.sendMail({
+        to: {
+          email: user.email,
+          name: user.name,
+        },
+        from: {
+          email: process.env.NOREPLY_EMAIL_ADDRESS,
+          name: process.env.NOREPLY_EMAIL_NAME,
+        },
+        subject: process.env.USER_2FA_EMAIL_SUBJECT,
+        body: (process.env.USER_2FA_EMAIL_BODY
+          .replace('{name}', user.name))
+          .replace('{token}', 
+            speakeasy.totp({ secret: user.secret, encoding: 'base32' })),
+      });
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Unexpected error ocurred while sending an email.',
+        },
+        status: 500,
+      });
+    }
+
+    return user.user_id;
   }
 }

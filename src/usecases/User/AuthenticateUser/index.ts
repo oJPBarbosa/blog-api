@@ -1,16 +1,16 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { JWTTokenProvider } from '../../../providers/implementations/JWTTokenProvider'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
+import { NodemailerMailProvider } from '../../../providers/implementations/NodemailerMailProvider'
+import { IMailProvider } from '../../../providers/IMailProvider'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
 import { AuthenticateUserController } from './AuthenticateUserController'
 
 const postgresUsersRepository: IUsersRepository  = new PostgresUsersRepository()
-const JWTTokenProviderP: ITokenProvider = new JWTTokenProvider()
+const nodemailerMailProvider: IMailProvider = new NodemailerMailProvider()
 
 const authenticateUserUseCase: AuthenticateUserUseCase = new AuthenticateUserUseCase(
   postgresUsersRepository,
-  JWTTokenProviderP,
+  nodemailerMailProvider,
 )
 
 const authenticateUserController: AuthenticateUserController = new AuthenticateUserController(

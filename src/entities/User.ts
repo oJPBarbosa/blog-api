@@ -35,6 +35,9 @@ export class User {
   @Column('boolean')
   root: boolean;
 
+  @Column()
+  secret: string;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -49,6 +52,7 @@ export class User {
     'authorized' |
     'verified' |
     'root' |
+    'secret' |
     'created_at' |
     'updated_at' |
     'posts' >) {

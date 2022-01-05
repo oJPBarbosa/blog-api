@@ -6,6 +6,7 @@ import { JwtPayload, verify } from 'jsonwebtoken'
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../exceptions/ExecuteError'
+import speakeasy from 'speakeasy'
 
 dotenv.config()
 
@@ -64,8 +65,9 @@ export class VerifyUserUseCase {
         status: 409,
       });
     }
-  
+
     user.verified = true;
+    user.secret = speakeasy.generateSecret().base32;
 
     await this.usersRepository.save(user);
 
@@ -105,7 +107,7 @@ export class VerifyUserUseCase {
           value: 'Unexpected error ocurred while sending an email.',
         },
         status: 500,
-      })
+      });
     }
   }
 }

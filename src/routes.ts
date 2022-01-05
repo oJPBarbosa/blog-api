@@ -5,6 +5,7 @@ import auth from './middlewares/auth'
 import { showUserController } from './usecases/User/ShowUser'
 import { createUserController } from './usecases/User/CreateUser'
 import { authenticateUserController } from './usecases/User/AuthenticateUser'
+import { twoFactorAuthenticateUserController } from './usecases/User/TwoFactorAuthenticateUser'
 import { updateUserController } from './usecases/User/UpdateUser'
 import { deleteUserController } from './usecases/User/DeleteUser'
 
@@ -21,7 +22,8 @@ const router: Router = Router()
 router.get('/users', (request, response) => { return showUserController.handle(request, response) })
 router.get('/users/verify', (request, response) => { verifyUserController.handle(request, response) })
 router.post('/users', (request, response) => { return createUserController.handle(request, response) })
-router.post('/users/auth', (request, response) => { return authenticateUserController.handle(request, response) })
+router.post('/users/authenticate', (request, response) => { return authenticateUserController.handle(request, response) })
+router.post('/users/2fa', (request, response) => { return twoFactorAuthenticateUserController.handle(request, response) })
 router.put('/users/:id', auth, (request, response) => { return updateUserController.handle(request, response) })
 router.delete('/users/:id', auth, (request, response) => { return deleteUserController.handle(request, response) })
 
