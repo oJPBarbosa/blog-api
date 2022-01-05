@@ -10,7 +10,8 @@ export class UpdateUserUseCase {
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
     const {
-      user_id,
+      source_user_id,
+      target_user_id,
       name,
       email,
       password,
@@ -21,29 +22,34 @@ export class UpdateUserUseCase {
       root,
     } = data;
 
-    const user: User = await this.usersRepository.findById(user_id);
+    const sourceUser: User = await this.usersRepository.findById(source_user_id);
+    const targetUser: User = await this.usersRepository.findById(target_user_id);
 
-    if (!user) {
+    if (!sourceUser || !targetUser) {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: 'User not found.',
+          value: `${sourceUser ? 'Target' : 'Source'} user not found.`,
         },
         status: 404,
       });
     }
 
-    user.name = name;
-    user.email = email;
-    user.password = password;
-    user.avatar = avatar;
-    user.biography_en = biography?.en;
-    user.biography_pt = biography?.pt;
-    user.authorized = authorized;
-    user.verified = verified;
-    user.root = root;
-    user.updated_at = new Date();
+    targetUser.name = name;
+    targetUser.email = email;
+    targetUser.password = password;
+    targetUser.avatar = avatar;
+    targetUser.biography_en = biography?.en;
+    targetUser.biography_pt = biography?.pt;
 
-    await this.usersRepository.save(user);
+    if (sourceUser.root) {
+      targetUser.authorized = authorized;
+      targetUser.verified = verified;
+      targetUser.root = root;
+    }
+
+    targetUser.updated_at = new Date();
+
+    await this.usersRepository.save(targetUser);
   }
 }

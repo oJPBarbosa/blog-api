@@ -24,7 +24,6 @@ export class ShowUserUseCase {
           },
           authorized: user.authorized,
           verified: user.verified,
-          root: user.root,
         };
       });
     }
@@ -52,7 +51,6 @@ export class ShowUserUseCase {
         },
         authorized: user.authorized,
         verified: user.verified,
-        root: user.root,
       };
     }
 
@@ -70,7 +68,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -90,7 +87,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -110,7 +106,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -130,7 +125,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -150,7 +144,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       })).filter((user: object) => { if (user !== null) return user });
@@ -170,7 +163,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -190,7 +182,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
@@ -210,7 +201,6 @@ export class ShowUserUseCase {
             },
             authorized: user.authorized,
             verified: user.verified,
-            root: user.root,
           };
         }
       }).filter((user: object) => { if (user !== null) return user });
