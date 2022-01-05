@@ -1,10 +1,12 @@
+import dotenv from 'dotenv'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
+import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../exceptions/ExecuteError'
 import { hash, genSalt } from 'bcrypt'
-import dotenv from 'dotenv'
+import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 
 dotenv.config()
 
@@ -12,6 +14,7 @@ export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
     private mailProvider: IMailProvider,
+    private tokenProvider: ITokenProvider,
   ) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<User> {
@@ -48,17 +51,19 @@ export class CreateUserUseCase {
 
     await this.usersRepository.save(user);
 
+    const token = this.tokenProvider.generateToken({ id: user.user_id }, USER_VERIFICATION_SECRET, false);
+
     await this.mailProvider.sendMail({
       to: {
-        email: data.email,
-        name: data.name,
+        email: email,
+        name: name,
       },
       from: {
-        email: process.env.EMAIL_ADDRESS,
-        name: process.env.EMAIL_NAME,
+        email: process.env.EMAIL_USER_VERIFICATION_ADDRESS,
+        name: process.env.EMAIL_USER_VERIFICATION_NAME,
       },
-      subject: process.env.EMAIL_SUBJECT,
-      body: process.env.EMAIL_BODY,
+      subject: process.env.EMAIL_USER_VERIFICATION_SUBJECT.replace('{name}', name.split(' ')[0]),
+      body: ((process.env.EMAIL_USER_VERIFICATION_BODY.replace('{name}', name.split(' ')[0])).replace('{token}', token)).replace('{token}', token),
     });
 
     return user;
