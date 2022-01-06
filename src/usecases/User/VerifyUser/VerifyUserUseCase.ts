@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { IVerifyUserRequestDTO } from './VerifyUserDTO'
+import { analyseDTO } from '../../../errors/DTOError'
 import { JwtPayload, verify } from 'jsonwebtoken'
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 import { User } from '../../../entities/User'
@@ -17,6 +18,18 @@ export class VerifyUserUseCase {
   ) {}
 
   async execute(data: IVerifyUserRequestDTO): Promise<void> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { token } = data;
 
     let payload: string | JwtPayload = null;

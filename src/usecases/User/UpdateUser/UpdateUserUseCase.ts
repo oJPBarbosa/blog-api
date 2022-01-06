@@ -1,5 +1,6 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
 import { UpdateUserRequestDTO } from './UpdateUserDTO'
+import { analyseDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 
@@ -9,6 +10,18 @@ export class UpdateUserUseCase {
   ) {}
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
+    try {
+      analyseDTO([ 'source_user_id', 'target_user_id' ]);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const {
       source_user_id,
       target_user_id,
@@ -29,7 +42,7 @@ export class UpdateUserUseCase {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: `${sourceUser ? 'Target' : 'Source'} user not found.`,
+          value: `Update ${sourceUser ? 'target' : 'source'} user not found.`,
         },
         status: 404,
       });

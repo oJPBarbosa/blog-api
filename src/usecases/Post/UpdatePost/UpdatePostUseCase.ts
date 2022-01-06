@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { UpdatePostRequestDTO } from './UpdatePostDTO';
+import { analyseDTO } from '../../../errors/DTOError';
 import { ExecuteError } from '../../../errors/ExecuteError'
-
 
 export class UpdatePostUseCase {
   constructor(
@@ -9,6 +9,18 @@ export class UpdatePostUseCase {
   ) {}
 
   async execute(data: UpdatePostRequestDTO): Promise<void> {
+    try {
+      analyseDTO([ 'post_id' ]);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { post_id, en, pt, votes } = data;
 
     const post = await this.postsRepository.findById(post_id);

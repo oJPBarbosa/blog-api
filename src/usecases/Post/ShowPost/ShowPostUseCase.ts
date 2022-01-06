@@ -1,5 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { ShowPostRequestDTO } from './ShowPostDTO'
+import { analyseDTO } from '../../../errors/DTOError';
 import { Post } from '../../../entities/Post'
 import { ExecuteError } from '../../../errors/ExecuteError'
 
@@ -9,6 +10,18 @@ export class ShowPostUseCase {
   ) {}
 
   async execute(data: ShowPostRequestDTO): Promise<object[] | object> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+    
     const { all, post_id } = data;
 
     if (all) {
@@ -55,7 +68,6 @@ export class ShowPostUseCase {
     }
 
     return {
-      id: post.post_id,
       en: {
         title: post.title_en,
         description: post.description_en,

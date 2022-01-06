@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
+import { analyseDTO } from '../../../errors/DTOError'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import { compare } from 'bcrypt'
@@ -16,6 +17,18 @@ export class AuthenticateUserUseCase {
   ) {}
 
   async execute(data: IAuthenticateUserRequestDTO): Promise<string> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { email, password } = data;
 
     const user: User = await this.usersRepository.findByEmail(email);

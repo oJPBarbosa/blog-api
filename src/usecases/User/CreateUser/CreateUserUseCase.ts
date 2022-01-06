@@ -3,6 +3,7 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
+import { analyseDTO } from '../../../errors/DTOError'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import { hash, genSalt } from 'bcrypt'
@@ -18,12 +19,22 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<User> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { 
       email, 
       password,
       name,
-      avatar,
-      biography,
     } = data;
 
     const userAlreadyExists: User = await this.usersRepository.findByEmail(email);
@@ -44,9 +55,6 @@ export class CreateUserUseCase {
       email,
       password: hashedPassword,
       name,
-      avatar,
-      biography_en: biography?.en,
-      biography_pt: biography?.pt,
     });
 
     await this.usersRepository.save(user);

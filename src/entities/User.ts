@@ -49,6 +49,9 @@ export class User {
 
   constructor(props: Omit<User, 
     'user_id' |
+    'avatar' |
+    'biography_en' |
+    'biography_pt' |
     'authorized' |
     'verified' |
     'root' |

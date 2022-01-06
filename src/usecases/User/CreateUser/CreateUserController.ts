@@ -12,8 +12,6 @@ export class CreateUserController {
       email,
       password,
       name,
-      avatar,
-      biography
     } = request.body;
 
     try {
@@ -21,8 +19,6 @@ export class CreateUserController {
         email,
         password,
         name,
-        avatar,
-        biography,
       });
   
       return response.status(201).json({ id: user.user_id });

@@ -1,5 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { DeletePostRequestDTO } from './DeletePostDTO'
+import { analyseDTO } from '../../../errors/DTOError'
 import { Post } from '../../../entities/Post'
 import { ExecuteError } from '../../../errors/ExecuteError'
 
@@ -9,6 +10,18 @@ export class DeletePostUseCase {
   ) {}
 
   async execute(data: DeletePostRequestDTO): Promise<void> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { post_id } = data;
 
     const post: Post = await this.postsRepository.findById(post_id);
