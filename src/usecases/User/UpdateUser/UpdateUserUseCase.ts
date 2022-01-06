@@ -48,12 +48,14 @@ export class UpdateUserUseCase {
       });
     }
 
-    targetUser.name = name;
-    targetUser.email = email;
-    targetUser.password = password;
-    targetUser.avatar = avatar;
-    targetUser.biography_en = biography?.en;
-    targetUser.biography_pt = biography?.pt;
+    if (sourceUser.root || sourceUser === targetUser) {
+      targetUser.name = name;
+      targetUser.email = email;
+      targetUser.password = password;
+      targetUser.avatar = avatar;
+      targetUser.biography_en = biography?.en;
+      targetUser.biography_pt = biography?.pt;
+    }
 
     if (sourceUser.root) {
       targetUser.authorized = authorized;
