@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 export class ForgetUserPasswordController {
   constructor(
     private forgetUserPasswordUseCase: ForgetUserPasswordUseCase,
-    ) {}
+  ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { email } = request.params
