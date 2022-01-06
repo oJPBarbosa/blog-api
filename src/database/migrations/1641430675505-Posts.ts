@@ -56,12 +56,6 @@ export class Posts1641430675505 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'votes',
-          type: 'int',
-          default: 0,
-          isNullable: false,
-        },
-        {
           name: 'created_at',
           type: 'timestamp',
           default: 'NOW()',

@@ -39,9 +39,6 @@ export class Post {
   @Column()
   content_pt: string;
 
-  @Column('int')
-  votes: number;
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -51,7 +48,6 @@ export class Post {
   constructor(props: Omit<Post,
     'post_id' |
     'author' |
-    'votes' |
     'created_at'|
     'updated_at'>) {
     Object.assign(this, props);
