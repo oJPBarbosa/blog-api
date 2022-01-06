@@ -6,6 +6,8 @@ import { showUserController } from './usecases/User/ShowUser'
 import { createUserController } from './usecases/User/CreateUser'
 import { authenticateUserController } from './usecases/User/AuthenticateUser'
 import { twoFactorAuthenticateUserController } from './usecases/User/TwoFactorAuthenticateUser'
+import { forgetUserPasswordController } from './usecases/User/ForgetUserPassword'
+import { resetUserPasswordController } from './usecases/User/ResetUserPassword'
 import { updateUserController } from './usecases/User/UpdateUser'
 import { deleteUserController } from './usecases/User/DeleteUser'
 
@@ -24,6 +26,8 @@ router.get('/users/verify', (request, response) => { verifyUserController.handle
 router.post('/users', (request, response) => { return createUserController.handle(request, response) })
 router.post('/users/authenticate', (request, response) => { return authenticateUserController.handle(request, response) })
 router.post('/users/2fa', (request, response) => { return twoFactorAuthenticateUserController.handle(request, response) })
+router.post('/users/forgot-password', (request, response) => { return forgetUserPasswordController.handle(request, response) })
+router.post('/users/reset-password', (request, response) => { return resetUserPasswordController.handle(request, response) })
 router.put('/users/:id', auth, (request, response) => { return updateUserController.handle(request, response) })
 router.delete('/users/:id', auth, (request, response) => { return deleteUserController.handle(request, response) })
 

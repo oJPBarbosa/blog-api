@@ -5,7 +5,7 @@ import { IVerifyUserRequestDTO } from './VerifyUserDTO'
 import { JwtPayload, verify } from 'jsonwebtoken'
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 import speakeasy from 'speakeasy'
 
 dotenv.config()

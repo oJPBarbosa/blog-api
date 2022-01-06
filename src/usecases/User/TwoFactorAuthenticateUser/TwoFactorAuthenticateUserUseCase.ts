@@ -2,7 +2,7 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO'
 import speakeasy from 'speakeasy'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 import { USER_SESSION_SECRET } from '../../../utils/secrets'
 
 

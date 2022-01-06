@@ -4,7 +4,7 @@ import { IMailProvider } from '../../../providers/IMailProvider'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 import { hash, genSalt } from 'bcrypt'
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 
@@ -51,7 +51,7 @@ export class CreateUserUseCase {
 
     await this.usersRepository.save(user);
 
-    const token = this.tokenProvider.generateToken({ id: user.user_id }, USER_VERIFICATION_SECRET, false);
+    const token: string = this.tokenProvider.generateToken({ id: user.user_id }, USER_VERIFICATION_SECRET, false);
 
     try {
       await this.mailProvider.sendMail({
@@ -64,7 +64,10 @@ export class CreateUserUseCase {
           name: process.env.NOREPLY_EMAIL_NAME,
         },
         subject: process.env.USER_VERIFICATION_EMAIL_SUBJECT.replace('{name}', name.split(' ')[0]),
-        body: ((process.env.USER_VERIFICATION_EMAIL_BODY.replace('{name}', name)).replace('{token}', token)).replace('{token}', token),
+        body: ((process.env.USER_VERIFICATION_EMAIL_BODY
+          .replace('{name}', name))
+          .replace('{token}', token))
+          .replace('{token}', token),
       });
     } catch (err) {
       throw new ExecuteError({

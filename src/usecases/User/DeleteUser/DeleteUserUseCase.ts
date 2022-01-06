@@ -1,7 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IDeleteUserRequestDTO } from './DeleteUserDTO'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 export class DeleteUserUseCase {
   constructor(

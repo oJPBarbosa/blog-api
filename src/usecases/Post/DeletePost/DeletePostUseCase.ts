@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { DeletePostRequestDTO } from './DeletePostDTO'
 import { Post } from '../../../entities/Post'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 export class DeletePostUseCase {
   constructor(

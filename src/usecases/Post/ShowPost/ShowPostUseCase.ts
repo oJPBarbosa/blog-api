@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { ShowPostRequestDTO } from './ShowPostDTO'
 import { Post } from '../../../entities/Post'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 export class ShowPostUseCase {
   constructor(

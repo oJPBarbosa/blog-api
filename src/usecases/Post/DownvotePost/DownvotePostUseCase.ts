@@ -1,6 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { DownvotePostRequestDTO } from './DownvotePostDTO'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 export class DownvotePostUseCase {
   constructor(

@@ -1,7 +1,7 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
 import { UpdateUserRequestDTO } from './UpdateUserDTO'
 import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 export class UpdateUserUseCase {
   constructor(

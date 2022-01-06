@@ -1,6 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository'
 import { UpdatePostRequestDTO } from './UpdatePostDTO';
-import { ExecuteError } from '../../../exceptions/ExecuteError'
+import { ExecuteError } from '../../../errors/ExecuteError'
 
 
 export class UpdatePostUseCase {
