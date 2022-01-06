@@ -48,7 +48,7 @@ DELETE /posts/:id
 
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
-- [S.O.L.I.D.](https://wikipedia.org/wiki/SOLID)
+- [S.O.L.I.D.](https://wikipedia.org/wiki/SOLID/)
 
 ## ✍️ Author
 
