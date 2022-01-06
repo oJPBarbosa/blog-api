@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="jpfb-api" src="https://user-images.githubusercontent.com/79005271/148313334-b12acb1d-00d3-4815-a4f6-a81e9740bca0.png">
+  <img alt="jpfb-api" src="">
 </p>
 
 <p align="center">
