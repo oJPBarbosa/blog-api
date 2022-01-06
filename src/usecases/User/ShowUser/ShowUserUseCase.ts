@@ -14,7 +14,6 @@ export class ShowUserUseCase {
     if (all) {
       return (await this.usersRepository.findAll()).map((user: User) => {
         return {
-          id: user.user_id,
           email: user.email,
           name: user.name,
           avatar: user.avatar,
@@ -58,7 +57,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (user.verified && user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -77,7 +75,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (!user.verified && !user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -96,7 +93,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (user.verified && !user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -115,7 +111,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (!user.verified && user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -134,7 +129,6 @@ export class ShowUserUseCase {
       return ((await this.usersRepository.findAll()).map((user: User) => {
         if (user.verified) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -153,7 +147,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (!user.verified) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -172,7 +165,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,
@@ -191,7 +183,6 @@ export class ShowUserUseCase {
       return (await this.usersRepository.findAll()).map((user: User) => {
         if (!user.authorized) {
           return {
-            id: user.user_id,
             email: user.email,
             name: user.name,
             avatar: user.avatar,

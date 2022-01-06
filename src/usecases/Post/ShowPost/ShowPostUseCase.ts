@@ -31,7 +31,6 @@ export class ShowPostUseCase {
           created_at: post.created_at,
           updated_at: post.updated_at,
           author: {
-            id: post.author?.user_id,
             name: post.author?.name,
             avatar: post.author?.avatar,
             biography: {
@@ -73,7 +72,6 @@ export class ShowPostUseCase {
       created_at: post.created_at,
       updated_at: post.updated_at,
       author: {
-        id: post.author?.user_id,
         name: post.author?.name,
         avatar: post.author?.avatar,
         biography: {
