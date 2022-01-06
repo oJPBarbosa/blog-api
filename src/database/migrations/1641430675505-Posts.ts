@@ -1,69 +1,65 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
-export class Users1641420016716 implements MigrationInterface {
+export class Posts1641430675505 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'users',
+      name: 'posts',
       columns: [
         {
-          name: 'user_id',
+          name: 'post_id',
           type: 'uuid',
-          isNullable: false,
           isPrimary: true,
         },
         {
-          name: 'email',
-          type: 'varchar',
-          isNullable: false,
-          isUnique: true,
-        },
-        {
-          name: 'password',
-          type: 'varchar',
+          name: 'author_id',
+          type: 'uuid',
           isNullable: false,
         },
         {
-          name: 'name',
+          name: 'title_en',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'avatar',
+          name: 'title_pt',
           type: 'varchar',
-          isNullable: true,
-        },
-        {
-          name: 'biography_pt',
-          type: 'varchar',
-          isNullable: true,
-        },
-        {
-          name: 'biography_en',
-          type: 'varchar',
-          isNullable: true,
-        },
-        {
-          name: 'authorized',
-          type: 'boolean',
-          default: false,
           isNullable: false,
         },
         {
-          name: 'verified',
-          type: 'boolean',
-          default: false,
-          isNullable: false,
-        },
-        {
-          name: 'root',
-          type: 'boolean',
-          default: false,
-          isNullable: false,
-        },
-        {
-          name: 'secret',
+          name: 'description_en',
           type: 'varchar',
-          isNullable: true,
+          isNullable: false,
+        },
+        {
+          name: 'description_pt',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'tags_en',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'tags_pt',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'content_en',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'content_pt',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'votes',
+          type: 'int',
+          default: 0,
+          isNullable: false,
         },
         {
           name: 'created_at',
@@ -82,6 +78,6 @@ export class Users1641420016716 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('posts');
   }
 }
