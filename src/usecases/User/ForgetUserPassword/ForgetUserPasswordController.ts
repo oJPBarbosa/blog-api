@@ -7,7 +7,7 @@ export class ForgetUserPasswordController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { email } = request.params
+    const { email } = request.body;
 
     try {
       await this.forgetUserPasswordUseCase.execute({ email });
