@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import auth from './middlewares/auth'
+import authentication from './middlewares/authentication'
 
 import { showUserController } from './usecases/User/ShowUser'
 import { createUserController } from './usecases/User/CreateUser'
@@ -26,12 +26,12 @@ router.post('/users/authenticate', (request, response) => { return authenticateU
 router.post('/users/2fa', (request, response) => { return twoFactorAuthenticateUserController.handle(request, response) })
 router.post('/users/forgot-password', (request, response) => { return forgetUserPasswordController.handle(request, response) })
 router.post('/users/reset-password', (request, response) => { return resetUserPasswordController.handle(request, response) })
-router.put('/users/:id', auth, (request, response) => { return updateUserController.handle(request, response) })
-router.delete('/users/:id', auth, (request, response) => { return deleteUserController.handle(request, response) })
+router.put('/users/:id', authentication, (request, response) => { return updateUserController.handle(request, response) })
+router.delete('/users/:id', authentication, (request, response) => { return deleteUserController.handle(request, response) })
 
 router.get('/posts', (request, response) => { return showPostController.handle(request, response) })
-router.post('/posts', auth, (request, response) => { return createPostController.handle(request, response) })
-router.put('/posts/:id', auth, (request, response) => { return updatePostController.handle(request, response) })
-router.delete('/posts/:id', auth, (request, response) => { return deletePostController.handle(request, response) })
+router.post('/posts', authentication, (request, response) => { return createPostController.handle(request, response) })
+router.put('/posts/:id', authentication, (request, response) => { return updatePostController.handle(request, response) })
+router.delete('/posts/:id', authentication, (request, response) => { return deletePostController.handle(request, response) })
 
 export default router
