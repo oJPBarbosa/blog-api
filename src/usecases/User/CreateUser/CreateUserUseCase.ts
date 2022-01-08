@@ -64,8 +64,8 @@ export class CreateUserUseCase {
     try {
       await this.mailProvider.sendMail({
         to: {
-          email: email,
-          name: name,
+          email,
+          name,
         },
         from: {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
