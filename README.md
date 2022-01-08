@@ -12,7 +12,7 @@
   </a>
   <img alt="GitHub" src="https://img.shields.io/github/license/oJPBarbosa/blog-api.svg">
   <a href="https://www.codacy.com/gh/oJPBarbosa/blog-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=oJPBarbosa/blog-api&amp;utm_campaign=Badge_Grade">
-    <img alt="Codacy Badge" src="">
+    <img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/06ee3e60480b494e94df3b639567c875">
   </a>
 </p>
 
