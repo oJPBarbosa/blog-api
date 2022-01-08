@@ -8,9 +8,13 @@ export class DeletePostController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const post_id = request.params.id;
+    const { source_user_id } = request.body;
   
     try {
-      await this.deleteUserUseCase.execute({ post_id });
+      await this.deleteUserUseCase.execute({
+        source_user_id,
+        post_id,
+      });
 
       response.json({ message: 'Post deleted.' });
     } catch (err) {

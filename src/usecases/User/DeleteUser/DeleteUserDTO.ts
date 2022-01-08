@@ -1,3 +1,4 @@
 export interface IDeleteUserRequestDTO {
-  user_id: string;
+  source_user_id: string;
+  target_user_id: string;
 }

@@ -22,20 +22,31 @@ export class DeleteUserUseCase {
       });
     }
     
-    const { user_id } = data;
+    const { source_user_id, target_user_id } = data;
 
-    const user: User = await this.usersRepository.findById(user_id);
+    const sourceUser = await this.usersRepository.findById(source_user_id);
+    const targetUser: User = await this.usersRepository.findById(target_user_id);
 
-    if (!user) {
+    if (!sourceUser || !targetUser) {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: 'User not found.',
+          value: `${sourceUser ? 'Target' : 'Source'} user not found.`,
         },
         status: 404,
       });
     }
 
-    await this.usersRepository.destroy(user);
+    if (sourceUser.user_id === targetUser.user_id || !sourceUser.root) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: 'Unauthorized.',
+        },
+        status: 403,
+      });
+    }
+
+    await this.usersRepository.destroy(targetUser);
   }
 }
