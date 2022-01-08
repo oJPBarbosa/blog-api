@@ -54,7 +54,6 @@ export class ForgetUserPasswordUseCase {
             .replace('{token}', token),
         });
       } catch (err) {
-      console.log(err)
         throw new ExecuteError({
           _message: {
             key: 'error',
