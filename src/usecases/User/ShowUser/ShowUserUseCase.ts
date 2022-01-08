@@ -81,7 +81,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (!verified && !authorized) {
@@ -99,7 +99,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (verified && !authorized) {
@@ -117,7 +117,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (!verified && authorized) {
@@ -135,7 +135,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (verified) {
@@ -153,7 +153,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      })).filter((user: object) => { if (user !== null) return user });
+      })).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (!verified) {
@@ -171,7 +171,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (authorized) {
@@ -189,7 +189,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
 
     if (!authorized) {
@@ -207,7 +207,7 @@ export class ShowUserUseCase {
             verified: user.verified,
           };
         }
-      }).filter((user: object) => { if (user !== null) return user });
+      }).filter((user: object) => { if (user !== null) { return user } });
     }
   }
 }
