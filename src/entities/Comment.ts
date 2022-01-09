@@ -2,7 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -19,7 +19,7 @@ export class Comment {
   @Column({ type: 'uuid', name: 'post_id' })
   post_id!: string;
 
-  @OneToOne(() => Post, (post) => post.comments)
+  @ManyToOne(() => Post, (post) => post.comments)
   @JoinColumn({ name: 'post_id' })
   post: Post;
 

@@ -70,7 +70,7 @@ export class Post {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Comment, (comment) => comment.post_id)
+  @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 
   constructor(props: Omit<Post,
