@@ -3,6 +3,7 @@ import { ShowPostRequestDTO } from './ShowPostDTO'
 import { analyseDTO } from '../../../errors/DTOError';
 import { Post } from '../../../entities/Post'
 import { ExecuteError } from '../../../errors/ExecuteError'
+import { Comment } from '../../../entities/Comment'
 
 export class ShowPostUseCase {
   constructor(
@@ -65,6 +66,15 @@ export class ShowPostUseCase {
             pt: post.author?.biography_pt,
           },
         },
+        comments: post.comments?.map((comment: Comment) => { 
+          return {
+            name: comment.name,
+            provider: comment.provider,
+            content: comment.content,
+            created_at: comment.created_at,
+            updated_at: comment.updated_at,
+          };
+        }),
       };
     }
 
@@ -109,7 +119,16 @@ export class ShowPostUseCase {
             en: post.author?.biography_en,
             pt: post.author?.biography_pt,
           },
-        }
+        },
+        comments: post.comments?.map((comment: Comment) => { 
+          return {
+            name: comment.name,
+            provider: comment.provider,
+            content: comment.content,
+            created_at: comment.created_at,
+            updated_at: comment.updated_at,
+          };
+        }),
       };
     }
 
@@ -144,6 +163,15 @@ export class ShowPostUseCase {
             pt: post.author?.biography_pt,
           },
         },
+        comments: post.comments?.map((comment: Comment) => { 
+          return {
+            name: comment.name,
+            provider: comment.provider,
+            content: comment.content,
+            created_at: comment.created_at,
+            updated_at: comment.updated_at,
+          };
+        }),
       };
     });
   }

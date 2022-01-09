@@ -11,6 +11,7 @@ export class PostgresPostsRepository implements IPostsRepository {
       }, 
       relations: [
         'author',
+        'comments',
       ],
     });
 
@@ -25,6 +26,7 @@ export class PostgresPostsRepository implements IPostsRepository {
       },
       relations: [
         'author',
+        'comments',
       ],
     });
 
@@ -36,6 +38,7 @@ export class PostgresPostsRepository implements IPostsRepository {
     const posts: Post[] = await repository.find({
       relations: [
         'author',
+        'comments',
       ],
     });
 
