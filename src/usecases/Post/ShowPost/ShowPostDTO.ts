@@ -1,4 +1,9 @@
+export interface ISlug {
+  language: string;
+  slug: string;
+}
+
 export interface ShowPostRequestDTO {
-  all?: boolean;
   post_id?: string;
+  slug?: ISlug;
 }

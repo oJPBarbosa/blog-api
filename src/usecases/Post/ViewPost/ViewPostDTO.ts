@@ -1,3 +1,8 @@
+export interface ISlug {
+  language: string;
+  slug: string;
+}
+
 export interface IViewPostRequestDTO {
-  post_id: string;
+  slug: ISlug;
 }

@@ -22,9 +22,12 @@ export class ViewPostUseCase {
       });
     }
 
-    const { post_id } = data;
+    const { slug } = data;
 
-    const post: Post = await this.postsRepository.findById(post_id);
+    const post: Post = await this.postsRepository.findBySlug(
+      slug.language,
+      slug.slug,
+    );
 
     if (!post) {
       throw new ExecuteError({

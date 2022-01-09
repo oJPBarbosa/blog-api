@@ -28,8 +28,8 @@ A bilingual blog-needs compliant S.O.L.I.D. principles-based API, that matches n
 # Users
 
 GET /users
-GET /users/verify?token=
 POST /users
+POST /users/verify?token=
 POST /users/authenticate
 POST /users/2fa
 POST /users/forgot-password
@@ -41,7 +41,7 @@ DELETE /users/:id
 
 GET /posts
 POST /posts
-POST /posts/view/:id
+POST /posts/view
 PUT /posts/:id
 DELETE /posts/:id
 ```

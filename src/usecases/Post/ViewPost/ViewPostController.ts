@@ -7,10 +7,10 @@ export class ViewPostController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const post_id = request.params.id;
+    const { slug } = request.body;
 
     try {
-      const views: number = await this.viewPostUseCase.execute({ post_id });
+      const views: number = await this.viewPostUseCase.execute({ slug });
 
       return response.json({ views });
     } catch (err) {
