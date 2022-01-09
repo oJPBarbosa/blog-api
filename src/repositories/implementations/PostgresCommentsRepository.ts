@@ -1,8 +1,6 @@
 import { ICommentsRepository } from '../ICommentsRepository'
 import { Comment } from '../../entities/Comment'
-import { Post } from '../../entities/Post'
 import { Repository, getRepository } from 'typeorm'
-import { PostgresPostsRepository } from './PostgresPostsRepository';
 
 export class PostgresCommentsRepository implements ICommentsRepository {
   public async findById(comment_id: string): Promise<Comment> {
