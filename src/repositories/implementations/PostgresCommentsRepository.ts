@@ -27,20 +27,6 @@ export class PostgresCommentsRepository implements ICommentsRepository {
     return comments;
   }
 
-  public async findByPostSlug(language: string, slug: string): Promise<Comment[]> {
-    const post: Post = await new PostgresPostsRepository().findBySlug(language, slug);
-
-    const repository: Repository<Comment> = getRepository(Comment);
-
-    const comments: Comment[] = await repository.find({
-      where: {
-        post_id: post.post_id,
-      },
-    });
-
-    return comments;
-  }
-
   public async findAll(): Promise<Comment[]> {
     const repository: Repository<Comment> = getRepository(Comment);
     const comments: Comment[] = await repository.find();
