@@ -63,6 +63,7 @@ export class UpdatePostUseCase {
         readingTime(en?.content ? en?.content : targetPost.content_en).text;
       targetPost.reading_time_pt =
         readingTime(pt?.content ? pt?.content : targetPost.content_pt).text
+        .replace('read', 'de leitura');
       targetPost.content_en =
         en?.hasOwnProperty('content') ? en.content : targetPost.content_en;
       targetPost.content_pt =
