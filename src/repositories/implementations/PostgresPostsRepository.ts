@@ -5,7 +5,7 @@ import { Repository, getRepository } from 'typeorm'
 export class PostgresPostsRepository implements IPostsRepository {
   public async findById(post_id: string): Promise<Post | undefined> {
     const repository: Repository<Post> = getRepository(Post);
-    const post = await repository.findOne({
+    const post: Post = await repository.findOne({
       where: {
         post_id 
       }, 
