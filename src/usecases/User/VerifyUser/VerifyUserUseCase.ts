@@ -94,8 +94,10 @@ export class VerifyUserUseCase {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
           name: process.env.NOREPLY_EMAIL_NAME,
         },
-        subject: process.env.USER_VERIFIED_EMAIL_SUBJECT.replace('{name}', user.name.split(' ')[0]),
-        body: process.env.USER_VERIFIED_EMAIL_BODY.replace('{name}', user.name),
+        subject: process.env.USER_VERIFIED_EMAIL_SUBJECT
+          .replace('{name}', user.name.split(' ')[0]),
+        body: process.env.USER_VERIFIED_EMAIL_BODY
+          .replace('{name}', user.name),
       });
 
       await this.mailProvider.sendMail({
@@ -107,7 +109,8 @@ export class VerifyUserUseCase {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
           name: process.env.NOREPLY_EMAIL_NAME,
         },
-        subject: process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_SUBJECT.replace('{name}', user.name.split(' ')[0]),
+        subject: process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_SUBJECT
+          .replace('{name}', user.name.split(' ')[0]),
         body: ((process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_BODY
           .replace('{user.email}', user.email))
           .replace('{user.name}', user.name))
