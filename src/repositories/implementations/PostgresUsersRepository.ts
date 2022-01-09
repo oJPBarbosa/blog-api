@@ -3,14 +3,14 @@ import { User } from '../../entities/User'
 import { Repository, getRepository } from 'typeorm'
 
 export class PostgresUsersRepository implements IUsersRepository {
-  public async findById(user_id: string): Promise<User | undefined> {
+  public async findById(user_id: string): Promise<User> {
     const repository: Repository<User> = getRepository(User);
     const user = await repository.findOne({ where: { user_id } });
 
     return user;
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findByEmail(email: string): Promise<User> {
     const repository: Repository<User> = getRepository(User);
     const user: User = await repository.findOne({ where: { email } });
 
