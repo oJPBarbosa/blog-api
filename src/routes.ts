@@ -18,6 +18,7 @@ import { viewPostController } from './usecases/Post/ViewPost'
 import { updatePostController } from './usecases/Post/UpdatePost'
 import { deletePostController } from './usecases/Post/DeletePost'
 
+import { showCommentController } from './usecases/Comment/ShowComment'
 import { createCommentController } from './usecases/Comment/CreateComment'
 
 const router: Router = Router()
@@ -38,6 +39,7 @@ router.post('/posts/view/:id', (request, response) => { return viewPostControlle
 router.put('/posts/:id', authentication, (request, response) => { return updatePostController.handle(request, response) })
 router.delete('/posts/:id', authentication, (request, response) => { return deletePostController.handle(request, response) })
 
+router.get('/posts/comments', (request, response) => { return showCommentController.handle(request, response)})
 router.post('/posts/:id/comments', (request, response) => { return createCommentController.handle(request, response) })
 
 export default router

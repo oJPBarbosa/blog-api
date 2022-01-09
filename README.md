@@ -44,6 +44,11 @@ POST /posts
 POST /posts/view
 PUT /posts/:id
 DELETE /posts/:id
+
+# Comments
+
+GET /posts/comments
+POST /posts/:id/comments
 ```
 
 ## :rocket: Technologies
