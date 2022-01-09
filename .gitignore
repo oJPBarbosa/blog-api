@@ -3,3 +3,4 @@ build
 yarn-error.log*
 .env
 secret.py
+.vscode

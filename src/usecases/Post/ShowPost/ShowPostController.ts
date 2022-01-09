@@ -1,6 +1,5 @@
 import { ShowPostUseCase } from './ShowPostUseCase'
 import { Request, Response } from 'express'
-import { Post } from '../../../entities/Post'
 
 export class ShowPostController {
   constructor(
@@ -12,7 +11,7 @@ export class ShowPostController {
 
     try {
       if (!id) {
-        const posts = await this.showPostUseCase.execute({ all: true });
+        const posts: object[] | object = await this.showPostUseCase.execute({ all: true });
 
         return response.json(posts);
       }

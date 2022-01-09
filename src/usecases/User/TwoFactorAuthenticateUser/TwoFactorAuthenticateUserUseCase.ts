@@ -1,6 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO'
+import { analyseDTO } from '../../../errors/DTOError'
 import speakeasy from 'speakeasy'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import { USER_SESSION_SECRET } from '../../../utils/secrets'
@@ -13,6 +14,18 @@ export class TwoFactorAuthenticateUserUseCase {
   ) {}
 
   async execute(data: ITwoFactorAuthenticateUserRequestDTO) {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
     const { user_id, token, KMSI } = data;
 
     const { secret, root } = await this.usersRepository.findById(user_id);

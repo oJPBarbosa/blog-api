@@ -6,13 +6,11 @@ export class DTOError extends Error {
   }
 }
 
-export const analyseDTO = (DTO?: any, only?: string[]) => {
-  const data = DTO ? DTO : only;
-
-  const keys = Object.keys(data);
+export const analyseDTO = (DTO: object) => {
+  const keys = Object.keys(DTO);
 
   keys.forEach((key: string) => {
-    const value = data[key];
+    const value = DTO[key];
 
     if (typeof value === 'string') {
       if (key.endsWith('_id') && !validate(value)) {

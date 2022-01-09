@@ -29,15 +29,19 @@ export class ShowPostUseCase {
         return {
           id: post.post_id,
           en: {
+            slug: post.slug_en,
             title: post.title_en,
             description: post.description_en,
             tags: post.tags_en,
+            reading_time: post.reading_time_en,
             content: post.content_en,
           },
           pt: {
+            slug: post.slug_pt,
             title: post.title_pt,
             description: post.description_pt,
             tags: post.tags_pt,
+            reading_time: post.reading_time_pt,
             content: post.content_pt,
           },
           created_at: post.created_at,
@@ -68,15 +72,19 @@ export class ShowPostUseCase {
 
     return {
       en: {
+        slug: post.slug_en,
         title: post.title_en,
         description: post.description_en,
         tags: post.tags_en,
+        reading_time: post.reading_time_en,
         content: post.content_en,
       },
       pt: {
+        slug: post.slug_pt,
         title: post.title_pt,
         description: post.description_pt,
         tags: post.tags_pt,
+        reading_time: post.reading_time_pt,
         content: post.content_pt,
       },
       created_at: post.created_at,

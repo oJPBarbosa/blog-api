@@ -3,6 +3,8 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { UpdatePostRequestDTO } from './UpdatePostDTO'
 import { analyseDTO } from '../../../errors/DTOError'
 import { ExecuteError } from '../../../errors/ExecuteError'
+import { slugify } from '../../../utils/slugify'
+import readingTime from 'reading-time'
 
 export class UpdatePostUseCase {
   constructor(
@@ -11,8 +13,10 @@ export class UpdatePostUseCase {
   ) {}
 
   async execute(data: UpdatePostRequestDTO): Promise<void> {
+    const { source_user_id, target_post_id } = data;
+
     try {
-      analyseDTO([ 'post_id', 'sourceUser_id' ]);
+      analyseDTO({ target_post_id, source_user_id });
     } catch (err) {
       throw new ExecuteError({
         _message: {
@@ -23,33 +27,49 @@ export class UpdatePostUseCase {
       });
     }
 
-    const { source_user_id, post_id, en, pt } = data;
-
     const sourceUser = await this.usersRepository.findById(source_user_id);
-    const post = await this.postsRepository.findById(post_id);
+    const targetPost = await this.postsRepository.findById(target_post_id);
 
-    if (!sourceUser || !post) {
+    if (!sourceUser || !targetPost) {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: `${sourceUser ? 'Post' : 'Source user'} not found.`,
+          value: `${sourceUser ? 'targetPost' : 'Source user'} not found.`,
         },
         status: 404,
       });
     }
 
-    if (sourceUser.user_id === post.author_id) {
-      post.title_en = en?.title;
-      post.title_pt = pt?.title;
-      post.description_en = en?.description;
-      post.description_pt = pt?.description;
-      post.tags_en = en?.tags;
-      post.tags_pt = pt?.tags;
-      post.content_en = en?.content;
-      post.content_pt = pt?.content;
-      post.updated_at = new Date();
+    const { en, pt } = data;
+
+    if (sourceUser.user_id === targetPost.author_id || sourceUser.root) {
+      targetPost.slug_en =
+        slugify(en?.hasOwnProperty('title') ? en.title : targetPost.title_en);
+      targetPost.slug_pt =
+        slugify(pt?.hasOwnProperty('title') ? pt.title : targetPost.title_pt);
+      targetPost.title_en =
+        en?.hasOwnProperty('title') ? en.title : targetPost.title_en;
+      targetPost.title_pt =
+        pt?.hasOwnProperty('title') ? pt.title : targetPost.title_pt;
+      targetPost.description_en =
+        en?.hasOwnProperty('description') ? en.title : targetPost.title_en;
+      targetPost.description_pt =
+        pt?.hasOwnProperty('description') ? pt.description : targetPost.description_pt;
+      targetPost.tags_en =
+        en?.hasOwnProperty('tags') ? en.tags : targetPost.tags_en;
+      targetPost.tags_pt =
+        pt?.hasOwnProperty('tags') ? pt.tags : targetPost.tags_pt;
+      targetPost.reading_time_en =
+        readingTime(en?.content ? en?.content : targetPost.content_en).text;
+      targetPost.reading_time_pt =
+        readingTime(pt?.content ? pt?.content : targetPost.content_pt).text
+      targetPost.content_en =
+        en?.hasOwnProperty('content') ? en.content : targetPost.content_en;
+      targetPost.content_pt =
+        pt?.hasOwnProperty('content') ? pt.content : targetPost.content_pt;
+      targetPost.updated_at = new Date();
     }
 
-    await this.postsRepository.save(post);
+    await this.postsRepository.save(targetPost);
   }
 }

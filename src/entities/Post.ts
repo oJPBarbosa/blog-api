@@ -16,6 +16,12 @@ export class Post {
   author: User;
 
   @Column()
+  slug_en: string;
+
+  @Column()
+  slug_pt: string;
+
+  @Column()
   title_en: string;
 
   @Column()
@@ -32,6 +38,12 @@ export class Post {
 
   @Column()
   tags_pt: string;
+
+  @Column()
+  reading_time_en: string;
+
+  @Column()
+  reading_time_pt: string;
 
   @Column()
   content_en: string;

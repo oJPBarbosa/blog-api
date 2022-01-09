@@ -1,4 +1,5 @@
 export interface IPostData {
+  slug: string;
   title?: string;
   description?: string;
   tags?: string;
@@ -7,7 +8,7 @@ export interface IPostData {
 
 export interface UpdatePostRequestDTO {
   source_user_id: string,
-  post_id: string;
+  target_post_id: string;
   en?: IPostData;
   pt?: IPostData;
 }

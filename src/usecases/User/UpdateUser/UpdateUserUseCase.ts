@@ -10,8 +10,10 @@ export class UpdateUserUseCase {
   ) {}
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
+    const { source_user_id, target_user_id } = data;
+
     try {
-      analyseDTO([ 'source_user_id', 'target_user_id' ]);
+      analyseDTO({ source_user_id, target_user_id });
     } catch (err) {
       throw new ExecuteError({
         _message: {
@@ -23,8 +25,6 @@ export class UpdateUserUseCase {
     }
 
     const {
-      source_user_id,
-      target_user_id,
       name,
       email,
       password,
