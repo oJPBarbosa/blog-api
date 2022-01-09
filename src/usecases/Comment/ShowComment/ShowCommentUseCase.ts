@@ -42,12 +42,12 @@ export class ShowCommentUseCase {
       }
 
       return {
+        id: comment.comment_id,
         name: comment.name,
         provider: comment.provider,
         content: comment.content,
         created_at: comment.created_at,
-        updated_at: comment.updated_at,
-      };;
+      };
     }
 
     else if (post_id) {
@@ -88,11 +88,11 @@ export class ShowCommentUseCase {
 
     return comments?.map((comment: Comment) => { 
       return {
+        id: comment.comment_id,
         name: comment.name,
         provider: comment.provider,
         content: comment.content,
         created_at: comment.created_at,
-        updated_at: comment.updated_at,
       };
     });
   }

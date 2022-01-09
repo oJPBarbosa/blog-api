@@ -68,6 +68,7 @@ export class ShowPostUseCase {
         },
         comments: post.comments?.map((comment: Comment) => { 
           return {
+            id: comment.comment_id,
             name: comment.name,
             provider: comment.provider,
             content: comment.content,
@@ -122,6 +123,7 @@ export class ShowPostUseCase {
         },
         comments: post.comments?.map((comment: Comment) => { 
           return {
+            id: comment.comment_id,
             name: comment.name,
             provider: comment.provider,
             content: comment.content,
@@ -165,6 +167,7 @@ export class ShowPostUseCase {
         },
         comments: post.comments?.map((comment: Comment) => { 
           return {
+            id: comment.comment_id,
             name: comment.name,
             provider: comment.provider,
             content: comment.content,

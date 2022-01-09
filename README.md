@@ -49,6 +49,7 @@ DELETE /posts/:id
 
 GET /posts/comments
 POST /posts/:id/comments
+DELETE /posts/comments/:id
 ```
 
 ## :rocket: Technologies
