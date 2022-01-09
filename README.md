@@ -41,6 +41,7 @@ DELETE /users/:id
 
 GET /posts
 POST /posts
+POST /posts/view/:id
 PUT /posts/:id
 DELETE /posts/:id
 ```
