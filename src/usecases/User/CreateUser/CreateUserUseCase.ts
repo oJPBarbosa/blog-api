@@ -74,8 +74,7 @@ export class CreateUserUseCase {
         subject: process.env.USER_VERIFICATION_EMAIL_SUBJECT.replace('{name}', name.split(' ')[0]),
         body: ((process.env.USER_VERIFICATION_EMAIL_BODY
           .replace('{name}', name))
-          .replace('{token}', token))
-          .replace('{token}', token),
+          .replaceAll('{token}', token)),
       });
     } catch (err) {
       throw new ExecuteError({
