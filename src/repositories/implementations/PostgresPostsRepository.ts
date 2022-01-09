@@ -7,10 +7,24 @@ export class PostgresPostsRepository implements IPostsRepository {
     const repository: Repository<Post> = getRepository(Post);
     const post: Post = await repository.findOne({
       where: {
-        post_id 
+        post_id,
       }, 
       relations: [
-        'author'
+        'author',
+      ],
+    });
+
+    return post;
+  }
+
+  public async findBySlug(language: string, slug: string): Promise<Post> {
+    const repository: Repository<Post> = getRepository(Post);
+    const post: Post = await repository.findOne({
+      where: {
+        [`slug_${language}`]: slug,
+      },
+      relations: [
+        'author',
       ],
     });
 
@@ -21,7 +35,7 @@ export class PostgresPostsRepository implements IPostsRepository {
     const repository: Repository<Post> = getRepository(Post);
     const posts: Post[] = await repository.find({
       relations: [
-        'author'
+        'author',
       ],
     });
 
