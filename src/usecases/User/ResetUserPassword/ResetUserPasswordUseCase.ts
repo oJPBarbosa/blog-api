@@ -5,6 +5,7 @@ import { analyseDTO } from '../../../errors/DTOError'
 import { JwtPayload, verify } from 'jsonwebtoken'
 import { USER_RESET_PASSWORD_SECRET, USER_SESSION_SECRET } from '../../../utils/secrets'
 import { ExecuteError } from '../../../errors/ExecuteError'
+import { User } from '../../../entities/User'
 import { hash, genSalt } from 'bcrypt'
 
 export class ResetUserPasswordUseCase {
@@ -53,7 +54,7 @@ export class ResetUserPasswordUseCase {
 
     const { id } = payload;
 
-    const user = await this.usersRepository.findById(id);
+    const user: User = await this.usersRepository.findById(id);
 
     user.password = await hash(password, await genSalt(16));
 
