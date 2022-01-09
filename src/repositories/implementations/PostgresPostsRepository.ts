@@ -3,7 +3,7 @@ import { Post } from '../../entities/Post'
 import { Repository, getRepository } from 'typeorm'
 
 export class PostgresPostsRepository implements IPostsRepository {
-  public async findById(post_id: string): Promise<Post | undefined> {
+  public async findById(post_id: string): Promise<Post> {
     const repository: Repository<Post> = getRepository(Post);
     const post: Post = await repository.findOne({
       where: {
@@ -31,7 +31,7 @@ export class PostgresPostsRepository implements IPostsRepository {
     return post;
   }
 
-  public async findAll(): Promise<Post[] | undefined> {
+  public async findAll(): Promise<Post[]> {
     const repository: Repository<Post> = getRepository(Post);
     const posts: Post[] = await repository.find({
       relations: [
