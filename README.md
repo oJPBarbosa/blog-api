@@ -1,6 +1,6 @@
 <p align="center">
-  <img alt="blog-api-create-post" src="https://user-images.githubusercontent.com/79005271/148665269-69a2272b-f6da-4fe3-b0eb-7c47f738d7cc.png" />
-  <img alt="blog-api-show-posts" src="https://user-images.githubusercontent.com/79005271/148665242-95f569ca-41a6-4d28-80ac-b857aa8bd7f3.png" />
+  <img alt="blog-api-create-post" src="https://user-images.githubusercontent.com/79005271/148666077-691c461d-00bf-4fb0-8d4f-6cc5ae1c6a70.png" />
+  <img alt="blog-api-show-posts" src="https://user-images.githubusercontent.com/79005271/148666069-bddf76db-1ac3-4efa-94c0-9c459c99fa18.png" />
 </p>
 
 <p align="center">
