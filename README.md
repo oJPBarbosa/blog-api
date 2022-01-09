@@ -56,6 +56,7 @@ DELETE /posts/comments/:id
 
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
+- [TypeORM](https://typeorm.io/)
 - [S.O.L.I.D.](https://wikipedia.org/wiki/SOLID/)
 
 ## ✍️ Author
