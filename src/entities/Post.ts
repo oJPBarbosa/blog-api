@@ -1,5 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm'
 import { User } from './User'
+import { Comment } from './Comment'
 import { v4 } from 'uuid'
 
 @Entity('posts')
@@ -60,12 +70,16 @@ export class Post {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @OneToMany(() => Comment, (comment) => comment.post_id)
+  comments: Comment[];
+
   constructor(props: Omit<Post,
     'post_id' |
     'author' |
     'views' |
-    'created_at'|
-    'updated_at'>) {
+    'created_at' |
+    'updated_at' |
+    'comments'>) {
     Object.assign(this, props);
     this.post_id = v4();
   }
