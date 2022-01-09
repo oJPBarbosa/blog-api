@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class Posts1641670433657 implements MigrationInterface {
+export class Posts1641691322261 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
       name: 'posts',
@@ -13,6 +13,12 @@ export class Posts1641670433657 implements MigrationInterface {
         {
           name: 'author_id',
           type: 'uuid',
+          isNullable: false,
+        },
+        {
+          name: 'views',
+          type: 'bigint',
+          default: 0,
           isNullable: false,
         },
         {

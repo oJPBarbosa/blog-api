@@ -1,0 +1,45 @@
+import { IPostsRepository } from '../../../repositories/IPostsRepository'
+import { IViewPostRequestDTO } from './ViewPostDTO'
+import { analyseDTO } from '../../../errors/DTOError'
+import { Post } from '../../../entities/Post'
+import { ExecuteError } from '../../../errors/ExecuteError'
+
+export class ViewPostUseCase {
+  constructor(
+    private postsRepository: IPostsRepository,
+  ) {}
+
+  async execute(data: IViewPostRequestDTO): Promise<number> {
+    try {
+      analyseDTO(data);
+    } catch (err) {
+      throw new ExecuteError({
+        _message: {
+          key: 'error',
+          value: err.message,
+        },
+        status: 400,
+      });
+    }
+
+    const { post_id } = data;
+
+    const post: Post = await this.postsRepository.findById(post_id);
+
+    if (!post) {
+      throw new ExecuteError({
+        status: 404,
+        _message: {
+          key: 'error',
+          value: 'Post not found.',
+        },
+      });
+    }
+
+    post.views++;
+
+    await this.postsRepository.save(post);
+
+    return post.views;
+  }
+}

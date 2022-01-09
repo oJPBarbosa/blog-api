@@ -8,12 +8,13 @@ export class UpdatePostController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const target_post_id = request.params.id;
-    const { source_user_id, en, pt } = request.body;
+    const { source_user_id, views, en, pt } = request.body;
 
     try {
       await this.updatePostUseCase.execute({
         source_user_id,
         target_post_id,
+        views,
         en,
         pt,
       });

@@ -28,6 +28,7 @@ export class ShowPostUseCase {
       return (await this.postsRepository.findAll()).map((post: Post) => { 
         return {
           id: post.post_id,
+          views: Number(post.views),
           en: {
             slug: post.slug_en,
             title: post.title_en,
@@ -71,6 +72,7 @@ export class ShowPostUseCase {
     }
 
     return {
+      views: Number(post.views),
       en: {
         slug: post.slug_en,
         title: post.title_en,

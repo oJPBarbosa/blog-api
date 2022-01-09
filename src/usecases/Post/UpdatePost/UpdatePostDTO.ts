@@ -9,6 +9,7 @@ export interface IPostData {
 export interface UpdatePostRequestDTO {
   source_user_id: string,
   target_post_id: string;
+  views?: number;
   en?: IPostData;
   pt?: IPostData;
 }

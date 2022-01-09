@@ -15,6 +15,9 @@ export class Post {
   @JoinColumn({ name: 'author_id' })
   author: User;
 
+  @Column('bigint')
+  views: number;
+
   @Column()
   slug_en: string;
 
@@ -60,6 +63,7 @@ export class Post {
   constructor(props: Omit<Post,
     'post_id' |
     'author' |
+    'views' |
     'created_at'|
     'updated_at'>) {
     Object.assign(this, props);

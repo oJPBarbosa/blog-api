@@ -34,15 +34,16 @@ export class UpdatePostUseCase {
       throw new ExecuteError({
         _message: {
           key: 'error',
-          value: `${sourceUser ? 'targetPost' : 'Source user'} not found.`,
+          value: `${sourceUser ? 'Target post' : 'Source user'} not found.`,
         },
         status: 404,
       });
     }
 
-    const { en, pt } = data;
+    const { views, en, pt } = data;
 
     if (sourceUser.user_id === targetPost.author_id || sourceUser.root) {
+      targetPost.views = views;
       targetPost.slug_en =
         slugify(en?.hasOwnProperty('title') ? en.title : targetPost.title_en);
       targetPost.slug_pt =
