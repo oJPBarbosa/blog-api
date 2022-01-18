@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
@@ -7,8 +7,6 @@ import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import { compare } from 'bcrypt'
 import speakeasy from 'speakeasy'
-
-dotenv.config()
 
 export class AuthenticateUserUseCase {
   constructor(

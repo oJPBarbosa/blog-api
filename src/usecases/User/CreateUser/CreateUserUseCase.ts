@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
@@ -8,8 +8,6 @@ import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import { hash, genSalt } from 'bcrypt'
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
-
-dotenv.config()
 
 export class CreateUserUseCase {
   constructor(

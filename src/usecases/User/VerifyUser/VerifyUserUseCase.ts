@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IMailProvider } from '../../../providers/IMailProvider'
 import { IVerifyUserRequestDTO } from './VerifyUserDTO'
@@ -8,8 +8,6 @@ import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
 import { User } from '../../../entities/User'
 import { ExecuteError } from '../../../errors/ExecuteError'
 import speakeasy from 'speakeasy'
-
-dotenv.config()
 
 export class VerifyUserUseCase {
   constructor(

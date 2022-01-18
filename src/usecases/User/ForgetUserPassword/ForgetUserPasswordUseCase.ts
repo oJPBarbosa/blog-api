@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ITokenProvider } from '../../../providers/ITokenProvider'
 import { IMailProvider } from '../../../providers/IMailProvider'
@@ -7,8 +7,6 @@ import { analyseDTO } from '../../../errors/DTOError'
 import { User } from '../../../entities/User'
 import { USER_RESET_PASSWORD_SECRET } from '../../../utils/secrets'
 import { ExecuteError } from '../../../errors/ExecuteError'
-
-dotenv.config()
 
 export class ForgetUserPasswordUseCase {
   constructor(

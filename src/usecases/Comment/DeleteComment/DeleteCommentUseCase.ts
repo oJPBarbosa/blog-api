@@ -1,23 +1,21 @@
-import dotenv from 'dotenv'
-import { ICommentsRepository } from '../../../repositories/ICommentsRepository'
-import { IPostsRepository } from '../../../repositories/IPostsRepository'
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IMailProvider } from '../../../providers/IMailProvider'
-import { IDeleteCommentRequestDTO } from './DeleteCommentDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { Comment } from '../../../entities/Comment'
-import { Post } from '../../../entities/Post'
-import { User } from '../../../entities/User'
-
-dotenv.config()
+import 'dotenv/config';
+import { ICommentsRepository } from '../../../repositories/ICommentsRepository';
+import { IPostsRepository } from '../../../repositories/IPostsRepository';
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { IMailProvider } from '../../../providers/IMailProvider';
+import { IDeleteCommentRequestDTO } from './DeleteCommentDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { Comment } from '../../../entities/Comment';
+import { Post } from '../../../entities/Post';
+import { User } from '../../../entities/User';
 
 export class DeleteCommentUseCase {
   constructor(
     private commentsRepository: ICommentsRepository,
     private postsRepository: IPostsRepository,
     private usersRepository: IUsersRepository,
-    private mailProvider: IMailProvider,
+    private mailProvider: IMailProvider
   ) {}
 
   async execute(data: IDeleteCommentRequestDTO): Promise<void> {
@@ -84,10 +82,14 @@ export class DeleteCommentUseCase {
         email: process.env.NOREPLY_EMAIL_ADDRESS,
         name: process.env.NOREPLY_EMAIL_NAME,
       },
-      subject: process.env.COMMENT_DELETED_EMAIL_SUBJECT
-        .replace('{name}', comment.name.split(' ')[0]),
-      body: process.env.COMMENT_DELETED_EMAIL_BODY
-        .replace('{name}', comment.name.split(' ')[0])
+      subject: process.env.COMMENT_DELETED_EMAIL_SUBJECT.replace(
+        '{name}',
+        comment.name.split(' ')[0]
+      ),
+      body: process.env.COMMENT_DELETED_EMAIL_BODY.replace(
+        '{name}',
+        comment.name.split(' ')[0]
+      )
         .replaceAll('{slug}', post.slug_en)
         .replace('{post.title}', post.title_en)
         .replace('{comment.content}', comment.content)
