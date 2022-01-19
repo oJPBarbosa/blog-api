@@ -5,7 +5,7 @@ import { Repository, getRepository } from 'typeorm';
 export class PostgresUsersRepository implements IUsersRepository {
   public async findById(user_id: string): Promise<User> {
     const repository: Repository<User> = getRepository(User);
-    const user = await repository.findOne({ where: { user_id } });
+    const user: User = await repository.findOne({ where: { user_id } });
 
     return user;
   }
