@@ -31,11 +31,7 @@ export class CreateUserUseCase {
 
     const { email, password, name } = data;
 
-    const userAlreadyExists: User = await this.usersRepository.findByEmail(
-      email,
-    );
-
-    if (userAlreadyExists) {
+    if (await this.usersRepository.findByEmail(email)) {
       throw new ExecuteError({
         _message: {
           key: 'error',
@@ -45,7 +41,7 @@ export class CreateUserUseCase {
       });
     }
 
-    const hashedPassword = await hash(password, await genSalt(16));
+    const hashedPassword: string = await hash(password, await genSalt(16));
 
     const user: User = new User({
       email,
