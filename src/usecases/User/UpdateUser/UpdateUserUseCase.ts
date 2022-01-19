@@ -1,13 +1,11 @@
-import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository'
-import { UpdateUserRequestDTO } from './UpdateUserDTO'
+import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository';
+import { UpdateUserRequestDTO } from './UpdateUserDTO';
 import { analyseDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class UpdateUserUseCase {
-  constructor(
-    private usersRepository: PostgresUsersRepository,
-  ) {}
+  constructor(private usersRepository: PostgresUsersRepository) {}
 
   async execute(data: UpdateUserRequestDTO): Promise<void> {
     const { source_user_id, target_user_id } = data;
@@ -35,8 +33,12 @@ export class UpdateUserUseCase {
       root,
     } = data;
 
-    const sourceUser: User = await this.usersRepository.findById(source_user_id);
-    const targetUser: User = await this.usersRepository.findById(target_user_id);
+    const sourceUser: User = await this.usersRepository.findById(
+      source_user_id,
+    );
+    const targetUser: User = await this.usersRepository.findById(
+      target_user_id,
+    );
 
     if (!sourceUser || !targetUser) {
       throw new ExecuteError({

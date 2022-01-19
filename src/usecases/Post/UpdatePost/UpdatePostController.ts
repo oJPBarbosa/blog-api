@@ -1,10 +1,8 @@
-import { UpdatePostUseCase } from './UpdatePostUseCase'
-import { Request, Response } from 'express'
+import { UpdatePostUseCase } from './UpdatePostUseCase';
+import { Request, Response } from 'express';
 
 export class UpdatePostController {
-  constructor(
-    private updatePostUseCase: UpdatePostUseCase,
-  ) {}
+  constructor(private updatePostUseCase: UpdatePostUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const target_post_id = request.params.id;
@@ -19,11 +17,14 @@ export class UpdatePostController {
         pt,
       });
 
-      return response.json({ message: 'Post updated.'});
+      return response.json({ message: 'Post updated.' });
     } catch (err) {
-      return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
-        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
-      });
+      return response
+        .status(err.hasOwnProperty('status') ? err.status : 500)
+        .json({
+          [err._message?.key || 'error']:
+            err._message?.value || 'Unexpected error.',
+        });
     }
   }
 }

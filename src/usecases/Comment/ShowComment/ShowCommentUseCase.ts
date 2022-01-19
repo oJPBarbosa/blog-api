@@ -1,10 +1,10 @@
-import { ICommentsRepository } from '../../../repositories/ICommentsRepository'
-import { IPostsRepository } from '../../../repositories/IPostsRepository'
-import { IShowCommentRequestDTO } from './ShowCommentDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { Comment } from '../../../entities/Comment'
-import { Post } from '../../../entities/Post'
+import { ICommentsRepository } from '../../../repositories/ICommentsRepository';
+import { IPostsRepository } from '../../../repositories/IPostsRepository';
+import { IShowCommentRequestDTO } from './ShowCommentDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { Comment } from '../../../entities/Comment';
+import { Post } from '../../../entities/Post';
 
 export class ShowCommentUseCase {
   constructor(
@@ -29,7 +29,9 @@ export class ShowCommentUseCase {
     let comments: Comment[] = [];
 
     if (comment_id) {
-      const comment: Comment = await this.commentsRepository.findById(comment_id);
+      const comment: Comment = await this.commentsRepository.findById(
+        comment_id,
+      );
 
       if (!comment) {
         throw new ExecuteError({
@@ -48,9 +50,7 @@ export class ShowCommentUseCase {
         content: comment.content,
         created_at: comment.created_at,
       };
-    }
-
-    else if (post_id) {
+    } else if (post_id) {
       const post: Post = await this.postsRepository.findById(post_id);
 
       if (!post) {
@@ -64,10 +64,11 @@ export class ShowCommentUseCase {
       }
 
       comments = await this.commentsRepository.findByPostId(post_id);
-    }
-
-    else if (slug) {
-      const post: Post = await this.postsRepository.findBySlug(slug.language, slug.slug);
+    } else if (slug) {
+      const post: Post = await this.postsRepository.findBySlug(
+        slug.language,
+        slug.slug,
+      );
 
       if (!post) {
         throw new ExecuteError({
@@ -80,13 +81,11 @@ export class ShowCommentUseCase {
       }
 
       comments = await this.commentsRepository.findByPostId(post.post_id);
-    }
-
-    else {
+    } else {
       comments = await this.commentsRepository.findAll();
     }
 
-    return comments?.map((comment: Comment) => { 
+    return comments?.map((comment: Comment) => {
       return {
         id: comment.comment_id,
         name: comment.name,

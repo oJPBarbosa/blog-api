@@ -1,13 +1,11 @@
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { ShowUserRequestDTO } from './ShowUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { ShowUserRequestDTO } from './ShowUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class ShowUserUseCase {
-  constructor(
-    private usersRepository: IUsersRepository,
-  ) {}
+  constructor(private usersRepository: IUsersRepository) {}
 
   async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
     try {
@@ -53,7 +51,7 @@ export class ShowUserUseCase {
         });
       }
 
-      return { 
+      return {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
@@ -67,147 +65,195 @@ export class ShowUserUseCase {
     }
 
     if (verified && authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (user.verified && user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (user.verified && user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (!verified && !authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (!user.verified && !user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (!user.verified && !user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (verified && !authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (user.verified && !user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (user.verified && !user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (!verified && authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (!user.verified && user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (!user.verified && user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (verified) {
-      return ((await this.usersRepository.findAll()).map((user: User) => {
-        if (user.verified) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      })).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (user.verified) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (!verified) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (!user.verified) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (!user.verified) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
 
     if (!authorized) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
-        if (!user.authorized) {
-          return {
-            email: user.email,
-            name: user.name,
-            avatar: user.avatar,
-            biography: {
-              en: user.biography_en,
-              pt: user.biography_pt,
-            },
-            authorized: user.authorized,
-            verified: user.verified,
-          };
-        }
-      }).filter((user: object) => { if (user !== null) { return user } });
+      return (await this.usersRepository.findAll())
+        .map((user: User) => {
+          if (!user.authorized) {
+            return {
+              email: user.email,
+              name: user.name,
+              avatar: user.avatar,
+              biography: {
+                en: user.biography_en,
+                pt: user.biography_pt,
+              },
+              authorized: user.authorized,
+              verified: user.verified,
+            };
+          }
+        })
+        .filter((user: object) => {
+          if (user !== null) {
+            return user;
+          }
+        });
     }
   }
 }

@@ -1,10 +1,8 @@
-import { ViewPostUseCase } from './ViewPostUseCase'
-import { Request, Response } from 'express'
+import { ViewPostUseCase } from './ViewPostUseCase';
+import { Request, Response } from 'express';
 
 export class ViewPostController {
-  constructor(
-    private viewPostUseCase: ViewPostUseCase,
-  ) {}
+  constructor(private viewPostUseCase: ViewPostUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { slug } = request.body;
@@ -14,9 +12,12 @@ export class ViewPostController {
 
       return response.json({ views });
     } catch (err) {
-      return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
-        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
-      });
+      return response
+        .status(err.hasOwnProperty('status') ? err.status : 500)
+        .json({
+          [err._message?.key || 'error']:
+            err._message?.value || 'Unexpected error.',
+        });
     }
   }
 }

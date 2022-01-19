@@ -1,12 +1,12 @@
 import 'dotenv/config';
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IMailProvider } from '../../../providers/IMailProvider'
-import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { compare } from 'bcrypt'
-import speakeasy from 'speakeasy'
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { IMailProvider } from '../../../providers/IMailProvider';
+import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { compare } from 'bcrypt';
+import speakeasy from 'speakeasy';
 
 export class AuthenticateUserUseCase {
   constructor(
@@ -74,10 +74,13 @@ export class AuthenticateUserUseCase {
           name: process.env.NOREPLY_EMAIL_NAME,
         },
         subject: process.env.USER_2FA_EMAIL_SUBJECT,
-        body: (process.env.USER_2FA_EMAIL_BODY
-          .replace('{name}', user.name))
-          .replace('{token}', 
-            speakeasy.totp({ secret: user.secret, encoding: 'base32' })),
+        body: process.env.USER_2FA_EMAIL_BODY.replace(
+          '{name}',
+          user.name,
+        ).replace(
+          '{token}',
+          speakeasy.totp({ secret: user.secret, encoding: 'base32' }),
+        ),
       });
     } catch (err) {
       throw new ExecuteError({

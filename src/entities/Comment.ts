@@ -6,13 +6,12 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm'
-import { Post } from './Post'
-import { v4 } from 'uuid'
+} from 'typeorm';
+import { Post } from './Post';
+import { v4 } from 'uuid';
 
 @Entity('comments')
 export class Comment {
-
   @PrimaryGeneratedColumn('uuid')
   comment_id: string;
 
@@ -41,11 +40,9 @@ export class Comment {
   @UpdateDateColumn()
   updated_at: Date;
 
-  constructor(props: Omit<Comment, 
-    'comment_id' |
-    'post' |
-    'created_at' |
-    'updated_at'>) {
+  constructor(
+    props: Omit<Comment, 'comment_id' | 'post' | 'created_at' | 'updated_at'>,
+  ) {
     Object.assign(this, props);
     this.comment_id = v4();
   }

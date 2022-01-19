@@ -1,12 +1,12 @@
-import { IPostsRepository } from '../../../repositories/IPostsRepository'
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { CreatePostRequestDTO } from './CreatePostDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { Post } from '../../../entities/Post'
-import { slugify } from '../../../utils/slugify'
-import readingTime from 'reading-time'
+import { IPostsRepository } from '../../../repositories/IPostsRepository';
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { CreatePostRequestDTO } from './CreatePostDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { Post } from '../../../entities/Post';
+import { slugify } from '../../../utils/slugify';
+import readingTime from 'reading-time';
 
 export class CreatePostUseCase {
   constructor(
@@ -52,8 +52,10 @@ export class CreatePostUseCase {
       tags_en: en.tags,
       tags_pt: pt.tags,
       reading_time_en: readingTime(en.content).text,
-      reading_time_pt: readingTime(pt.content).text
-        .replace('read', 'de leitura'),
+      reading_time_pt: readingTime(pt.content).text.replace(
+        'read',
+        'de leitura',
+      ),
       content_en: en.content,
       content_pt: pt.content,
     });

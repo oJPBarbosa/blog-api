@@ -1,10 +1,10 @@
-import { ICommentsRepository } from '../../../repositories/ICommentsRepository'
-import { IPostsRepository } from '../../../repositories/IPostsRepository'
-import { CreateCommentRequestDTO } from './CreateCommentDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { Comment } from '../../../entities/Comment'
-import { Post } from '../../../entities/Post'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import { ICommentsRepository } from '../../../repositories/ICommentsRepository';
+import { IPostsRepository } from '../../../repositories/IPostsRepository';
+import { CreateCommentRequestDTO } from './CreateCommentDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { Comment } from '../../../entities/Comment';
+import { Post } from '../../../entities/Post';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class CreateCommentUseCase {
   constructor(
@@ -25,13 +25,7 @@ export class CreateCommentUseCase {
       });
     }
 
-    const { 
-      post_id,
-      email,
-      name,
-      provider,
-      content 
-    } = data;
+    const { post_id, email, name, provider, content } = data;
 
     const post: Post = await this.postsRepository.findById(post_id);
 

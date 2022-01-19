@@ -15,7 +15,7 @@ export class DeleteCommentUseCase {
     private commentsRepository: ICommentsRepository,
     private postsRepository: IPostsRepository,
     private usersRepository: IUsersRepository,
-    private mailProvider: IMailProvider
+    private mailProvider: IMailProvider,
   ) {}
 
   async execute(data: IDeleteCommentRequestDTO): Promise<void> {
@@ -84,11 +84,11 @@ export class DeleteCommentUseCase {
       },
       subject: process.env.COMMENT_DELETED_EMAIL_SUBJECT.replace(
         '{name}',
-        comment.name.split(' ')[0]
+        comment.name.split(' ')[0],
       ),
       body: process.env.COMMENT_DELETED_EMAIL_BODY.replace(
         '{name}',
-        comment.name.split(' ')[0]
+        comment.name.split(' ')[0],
       )
         .replaceAll('{slug}', post.slug_en)
         .replace('{post.title}', post.title_en)

@@ -1,13 +1,11 @@
-import { IPostsRepository } from '../../../repositories/IPostsRepository'
-import { IViewPostRequestDTO } from './ViewPostDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { Post } from '../../../entities/Post'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import { IPostsRepository } from '../../../repositories/IPostsRepository';
+import { IViewPostRequestDTO } from './ViewPostDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { Post } from '../../../entities/Post';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class ViewPostUseCase {
-  constructor(
-    private postsRepository: IPostsRepository,
-  ) {}
+  constructor(private postsRepository: IPostsRepository) {}
 
   async execute(data: IViewPostRequestDTO): Promise<number> {
     try {

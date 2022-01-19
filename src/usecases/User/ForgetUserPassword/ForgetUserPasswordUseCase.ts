@@ -1,12 +1,12 @@
-import 'dotenv/config'
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
-import { IMailProvider } from '../../../providers/IMailProvider'
-import { IForgetUserPasswordRequestDTO } from './ForgetUserPasswordDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { USER_RESET_PASSWORD_SECRET } from '../../../utils/secrets'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import 'dotenv/config';
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { ITokenProvider } from '../../../providers/ITokenProvider';
+import { IMailProvider } from '../../../providers/IMailProvider';
+import { IForgetUserPasswordRequestDTO } from './ForgetUserPasswordDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { USER_RESET_PASSWORD_SECRET } from '../../../utils/secrets';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class ForgetUserPasswordUseCase {
   constructor(
@@ -15,7 +15,7 @@ export class ForgetUserPasswordUseCase {
     private tokenProvider: ITokenProvider,
   ) {}
 
-  async execute(data: IForgetUserPasswordRequestDTO): Promise<void>{
+  async execute(data: IForgetUserPasswordRequestDTO): Promise<void> {
     try {
       analyseDTO(data);
     } catch (err) {
@@ -27,13 +27,17 @@ export class ForgetUserPasswordUseCase {
         status: 400,
       });
     }
-    
+
     const { email } = data;
 
     const user: User = await this.usersRepository.findByEmail(email);
 
     if (user) {
-      const token: string = this.tokenProvider.generateToken({ id: user.user_id }, USER_RESET_PASSWORD_SECRET, true );
+      const token: string = this.tokenProvider.generateToken(
+        { id: user.user_id },
+        USER_RESET_PASSWORD_SECRET,
+        true,
+      );
 
       try {
         await this.mailProvider.sendMail({
@@ -45,11 +49,14 @@ export class ForgetUserPasswordUseCase {
             email: process.env.NOREPLY_EMAIL_ADDRESS,
             name: process.env.NOREPLY_EMAIL_NAME,
           },
-          subject: process.env.USER_RESET_PASSWORD_EMAIL_SUBJECT
-            .replace('{name}', user.name.split(' ')[0]),
-          body: (process.env.USER_RESET_PASSWORD_EMAIL_BODY
-            .replace('{name}', user.name.split(' ')[0]))
-            .replace('{token}', token),
+          subject: process.env.USER_RESET_PASSWORD_EMAIL_SUBJECT.replace(
+            '{name}',
+            user.name.split(' ')[0],
+          ),
+          body: process.env.USER_RESET_PASSWORD_EMAIL_BODY.replace(
+            '{name}',
+            user.name.split(' ')[0],
+          ).replace('{token}', token),
         });
       } catch (err) {
         throw new ExecuteError({

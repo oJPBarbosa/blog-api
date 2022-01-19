@@ -1,10 +1,8 @@
-import { Request, Response } from 'express'
-import { UpdateUserUseCase } from './UpdateUserUseCase'
+import { Request, Response } from 'express';
+import { UpdateUserUseCase } from './UpdateUserUseCase';
 
 export class UpdateUserController {
-  constructor(
-    private updateUserUseCase: UpdateUserUseCase,
-  ) {}
+  constructor(private updateUserUseCase: UpdateUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
@@ -30,15 +28,18 @@ export class UpdateUserController {
         avatar,
         biography,
         authorized,
-        verified, 
+        verified,
         root,
       });
 
       return response.json({ message: 'User updated.' });
     } catch (err) {
-      return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
-        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
-      });
+      return response
+        .status(err.hasOwnProperty('status') ? err.status : 500)
+        .json({
+          [err._message?.key || 'error']:
+            err._message?.value || 'Unexpected error.',
+        });
     }
   }
 }

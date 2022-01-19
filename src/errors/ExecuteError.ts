@@ -9,7 +9,6 @@ export interface IExecuteError {
 }
 
 export class ExecuteError extends Error {
-
   _message: IErrorMessage;
 
   status: number;

@@ -1,6 +1,6 @@
-import { IPostsRepository } from '../IPostsRepository'
-import { Post } from '../../entities/Post'
-import { Repository, getRepository } from 'typeorm'
+import { IPostsRepository } from '../IPostsRepository';
+import { Post } from '../../entities/Post';
+import { Repository, getRepository } from 'typeorm';
 
 export class PostgresPostsRepository implements IPostsRepository {
   public async findById(post_id: string): Promise<Post> {
@@ -8,11 +8,8 @@ export class PostgresPostsRepository implements IPostsRepository {
     const post: Post = await repository.findOne({
       where: {
         post_id,
-      }, 
-      relations: [
-        'author',
-        'comments',
-      ],
+      },
+      relations: ['author', 'comments'],
     });
 
     return post;
@@ -24,10 +21,7 @@ export class PostgresPostsRepository implements IPostsRepository {
       where: {
         [`slug_${language}`]: slug,
       },
-      relations: [
-        'author',
-        'comments',
-      ],
+      relations: ['author', 'comments'],
     });
 
     return post;
@@ -36,10 +30,7 @@ export class PostgresPostsRepository implements IPostsRepository {
   public async findAll(): Promise<Post[]> {
     const repository: Repository<Post> = getRepository(Post);
     const posts: Post[] = await repository.find({
-      relations: [
-        'author',
-        'comments',
-      ],
+      relations: ['author', 'comments'],
     });
 
     return posts;

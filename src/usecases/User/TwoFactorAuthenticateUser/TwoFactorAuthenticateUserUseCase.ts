@@ -1,11 +1,10 @@
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
-import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import speakeasy from 'speakeasy'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { USER_SESSION_SECRET } from '../../../utils/secrets'
-
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { ITokenProvider } from '../../../providers/ITokenProvider';
+import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import speakeasy from 'speakeasy';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { USER_SESSION_SECRET } from '../../../utils/secrets';
 
 export class TwoFactorAuthenticateUserUseCase {
   constructor(
@@ -47,6 +46,10 @@ export class TwoFactorAuthenticateUserUseCase {
       });
     }
 
-    return this.tokenProvider.generateToken({ id: user_id, root }, USER_SESSION_SECRET, KMSI);
+    return this.tokenProvider.generateToken(
+      { id: user_id, root },
+      USER_SESSION_SECRET,
+      KMSI,
+    );
   }
 }

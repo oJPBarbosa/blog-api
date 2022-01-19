@@ -7,14 +7,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-} from 'typeorm'
-import { User } from './User'
-import { Comment } from './Comment'
-import { v4 } from 'uuid'
+} from 'typeorm';
+import { User } from './User';
+import { Comment } from './Comment';
+import { v4 } from 'uuid';
 
 @Entity('posts')
 export class Post {
-
   @PrimaryGeneratedColumn('uuid')
   post_id: string;
 
@@ -73,13 +72,12 @@ export class Post {
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 
-  constructor(props: Omit<Post,
-    'post_id' |
-    'author' |
-    'views' |
-    'created_at' |
-    'updated_at' |
-    'comments'>) {
+  constructor(
+    props: Omit<
+      Post,
+      'post_id' | 'author' | 'views' | 'created_at' | 'updated_at' | 'comments'
+    >,
+  ) {
     Object.assign(this, props);
     this.post_id = v4();
   }

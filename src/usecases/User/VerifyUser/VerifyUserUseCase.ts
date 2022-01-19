@@ -1,13 +1,13 @@
-import 'dotenv/config'
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IMailProvider } from '../../../providers/IMailProvider'
-import { IVerifyUserRequestDTO } from './VerifyUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { JwtPayload, verify } from 'jsonwebtoken'
-import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import speakeasy from 'speakeasy'
+import 'dotenv/config';
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { IMailProvider } from '../../../providers/IMailProvider';
+import { IVerifyUserRequestDTO } from './VerifyUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { JwtPayload, verify } from 'jsonwebtoken';
+import { USER_VERIFICATION_SECRET } from '../../../utils/secrets';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import speakeasy from 'speakeasy';
 
 export class VerifyUserUseCase {
   constructor(
@@ -32,7 +32,7 @@ export class VerifyUserUseCase {
 
     let payload: string | JwtPayload = null;
     try {
-      payload = (verify(token, USER_VERIFICATION_SECRET));
+      payload = verify(token, USER_VERIFICATION_SECRET);
     } catch (err) {
       throw new ExecuteError({
         _message: {
@@ -92,10 +92,11 @@ export class VerifyUserUseCase {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
           name: process.env.NOREPLY_EMAIL_NAME,
         },
-        subject: process.env.USER_VERIFIED_EMAIL_SUBJECT
-          .replace('{name}', user.name.split(' ')[0]),
-        body: process.env.USER_VERIFIED_EMAIL_BODY
-          .replace('{name}', user.name),
+        subject: process.env.USER_VERIFIED_EMAIL_SUBJECT.replace(
+          '{name}',
+          user.name.split(' ')[0],
+        ),
+        body: process.env.USER_VERIFIED_EMAIL_BODY.replace('{name}', user.name),
       });
 
       await this.mailProvider.sendMail({
@@ -107,11 +108,15 @@ export class VerifyUserUseCase {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
           name: process.env.NOREPLY_EMAIL_NAME,
         },
-        subject: process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_SUBJECT
-          .replace('{name}', user.name.split(' ')[0]),
-        body: ((process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_BODY
-          .replace('{user.email}', user.email))
-          .replace('{user.name}', user.name))
+        subject: process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_SUBJECT.replace(
+          '{name}',
+          user.name.split(' ')[0],
+        ),
+        body: process.env.WRITER_AUTHORIZATION_REQUEST_EMAIL_BODY.replace(
+          '{user.email}',
+          user.email,
+        )
+          .replace('{user.name}', user.name)
           .replace('{request.date}', new Date().toISOString()),
       });
     } catch (err) {

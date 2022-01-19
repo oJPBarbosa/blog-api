@@ -1,4 +1,4 @@
-import slug from 'slugify'
+import slug from 'slugify';
 
 export const slugify = (string: string): string => {
   return slug(string, {
@@ -6,5 +6,5 @@ export const slugify = (string: string): string => {
     lower: true,
     strict: true,
     trim: true,
-  })
-}
+  });
+};

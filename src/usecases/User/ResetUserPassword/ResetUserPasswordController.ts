@@ -1,10 +1,8 @@
-import { ResetUserPasswordUseCase } from './ResetUserPasswordUseCase'
-import { Request, Response } from 'express'
+import { ResetUserPasswordUseCase } from './ResetUserPasswordUseCase';
+import { Request, Response } from 'express';
 
 export class ResetUserPasswordController {
-  constructor(
-    private resetUserPasswordUseCase: ResetUserPasswordUseCase,
-  ) {}
+  constructor(private resetUserPasswordUseCase: ResetUserPasswordUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { token, password } = request.body;
@@ -17,9 +15,12 @@ export class ResetUserPasswordController {
 
       return response.json({ token: session });
     } catch (err) {
-      return response.status((err.hasOwnProperty('status') ? err.status : 500)).json({
-        [err._message?.key || 'error']: err._message?.value || 'Unexpected error.',
-      });
+      return response
+        .status(err.hasOwnProperty('status') ? err.status : 500)
+        .json({
+          [err._message?.key || 'error']:
+            err._message?.value || 'Unexpected error.',
+        });
     }
   }
 }

@@ -1,13 +1,13 @@
-import 'dotenv/config'
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IMailProvider } from '../../../providers/IMailProvider'
-import { ITokenProvider } from '../../../providers/ITokenProvider'
-import { ICreateUserRequestDTO } from './CreateUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
-import { hash, genSalt } from 'bcrypt'
-import { USER_VERIFICATION_SECRET } from '../../../utils/secrets'
+import 'dotenv/config';
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { IMailProvider } from '../../../providers/IMailProvider';
+import { ITokenProvider } from '../../../providers/ITokenProvider';
+import { ICreateUserRequestDTO } from './CreateUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
+import { hash, genSalt } from 'bcrypt';
+import { USER_VERIFICATION_SECRET } from '../../../utils/secrets';
 
 export class CreateUserUseCase {
   constructor(
@@ -29,13 +29,11 @@ export class CreateUserUseCase {
       });
     }
 
-    const { 
-      email, 
-      password,
-      name,
-    } = data;
+    const { email, password, name } = data;
 
-    const userAlreadyExists: User = await this.usersRepository.findByEmail(email);
+    const userAlreadyExists: User = await this.usersRepository.findByEmail(
+      email,
+    );
 
     if (userAlreadyExists) {
       throw new ExecuteError({
@@ -57,7 +55,11 @@ export class CreateUserUseCase {
 
     await this.usersRepository.save(user);
 
-    const token: string = this.tokenProvider.generateToken({ id: user.user_id }, USER_VERIFICATION_SECRET, false);
+    const token: string = this.tokenProvider.generateToken(
+      { id: user.user_id },
+      USER_VERIFICATION_SECRET,
+      false,
+    );
 
     try {
       await this.mailProvider.sendMail({
@@ -69,10 +71,14 @@ export class CreateUserUseCase {
           email: process.env.NOREPLY_EMAIL_ADDRESS,
           name: process.env.NOREPLY_EMAIL_NAME,
         },
-        subject: process.env.USER_VERIFICATION_EMAIL_SUBJECT.replace('{name}', name.split(' ')[0]),
-        body: ((process.env.USER_VERIFICATION_EMAIL_BODY
-          .replace('{name}', name))
-          .replaceAll('{token}', token)),
+        subject: process.env.USER_VERIFICATION_EMAIL_SUBJECT.replace(
+          '{name}',
+          name.split(' ')[0],
+        ),
+        body: process.env.USER_VERIFICATION_EMAIL_BODY.replace(
+          '{name}',
+          name,
+        ).replaceAll('{token}', token),
       });
     } catch (err) {
       throw new ExecuteError({

@@ -1,13 +1,11 @@
-import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IDeleteUserRequestDTO } from './DeleteUserDTO'
-import { analyseDTO } from '../../../errors/DTOError'
-import { User } from '../../../entities/User'
-import { ExecuteError } from '../../../errors/ExecuteError'
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { IDeleteUserRequestDTO } from './DeleteUserDTO';
+import { analyseDTO } from '../../../errors/DTOError';
+import { User } from '../../../entities/User';
+import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class DeleteUserUseCase {
-  constructor(
-    private usersRepository: IUsersRepository,
-  ) {}
+  constructor(private usersRepository: IUsersRepository) {}
 
   async execute(data: IDeleteUserRequestDTO): Promise<void> {
     try {
@@ -21,11 +19,13 @@ export class DeleteUserUseCase {
         status: 400,
       });
     }
-    
+
     const { source_user_id, target_user_id } = data;
 
     const sourceUser = await this.usersRepository.findById(source_user_id);
-    const targetUser: User = await this.usersRepository.findById(target_user_id);
+    const targetUser: User = await this.usersRepository.findById(
+      target_user_id,
+    );
 
     if (!sourceUser || !targetUser) {
       throw new ExecuteError({

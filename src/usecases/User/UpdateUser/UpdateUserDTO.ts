@@ -4,8 +4,8 @@ export interface IBiography {
 }
 
 export interface UpdateUserRequestDTO {
-  source_user_id: string,
-  target_user_id: string,
+  source_user_id: string;
+  target_user_id: string;
   name?: string;
   email?: string;
   password?: string;

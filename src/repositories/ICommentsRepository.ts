@@ -1,4 +1,4 @@
-import { Comment } from '../entities/Comment'
+import { Comment } from '../entities/Comment';
 
 export interface ICommentsRepository {
   findById(comment_id: string): Promise<Comment>;
