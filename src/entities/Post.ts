@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   ManyToOne,
   JoinColumn,
@@ -14,17 +14,17 @@ import { v4 } from 'uuid';
 
 @Entity('posts')
 export class Post {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   post_id: string;
 
-  @Column({ type: 'uuid', name: 'author_id' })
-  author_id!: string;
+  @Column('uuid')
+  author_id: string;
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'author_id' })
   author: User;
 
-  @Column('bigint')
+  @Column({ type: 'bigint', default: 0 })
   views: number;
 
   @Column()
@@ -66,7 +66,7 @@ export class Post {
   @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ update: true })
   updated_at: Date;
 
   @OneToMany(() => Comment, (comment) => comment.post)

@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -11,7 +11,7 @@ import { v4 } from 'uuid';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   user_id: string;
 
   @Column()
@@ -23,31 +23,31 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
-  @Column()
+  @Column({ nullable: true })
   biography_en: string;
 
-  @Column()
+  @Column({ nullable: true })
   biography_pt: string;
 
-  @Column('boolean')
+  @Column({ type: 'boolean', default: false })
   authorized: boolean;
 
-  @Column('boolean')
+  @Column({ type: 'boolean', default: false })
   verified: boolean;
 
-  @Column('boolean')
+  @Column({ type: 'boolean', default: false })
   root: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   secret: string;
 
   @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ update: true })
   updated_at: Date;
 
   @OneToMany(() => Post, (post) => post.author_id)

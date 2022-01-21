@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   ManyToOne,
   JoinColumn,
@@ -12,11 +12,11 @@ import { v4 } from 'uuid';
 
 @Entity('comments')
 export class Comment {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   comment_id: string;
 
-  @Column({ type: 'uuid', name: 'post_id' })
-  post_id!: string;
+  @Column('uuid')
+  post_id: string;
 
   @ManyToOne(() => Post, (post) => post.comments)
   @JoinColumn({ name: 'post_id' })
@@ -37,7 +37,7 @@ export class Comment {
   @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ update: true })
   updated_at: Date;
 
   constructor(
