@@ -2,7 +2,7 @@ require('dotenv/config');
 
 const production = process.env.NODE_ENV === 'production';
 
-const dir = production ? './build' : './src';
+const dir = production ? './dist' : './src';
 
 const config = {
   type: 'postgres',

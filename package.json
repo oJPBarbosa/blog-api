@@ -4,7 +4,7 @@
   "author": "João Pedro Ferreira Barbosa",
   "license": "MIT",
   "scripts": {
-    "start": "node build/server.js",
+    "start": "node dist/server.js",
     "start:dev": "ts-node src/server.ts",
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "tsc",
