@@ -4,9 +4,9 @@ import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { IForgetUserPasswordRequestDTO } from './ForgetUserPasswordDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
+import { ExecuteError } from '../../../errors/ExecuteError';
 import { User } from '../../../entities/User';
 import { USER_RESET_PASSWORD_SECRET } from '../../../utils/secrets';
-import { ExecuteError } from '../../../errors/ExecuteError';
 
 export class ForgetUserPasswordUseCase {
   constructor(
@@ -20,10 +20,7 @@ export class ForgetUserPasswordUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -60,10 +57,7 @@ export class ForgetUserPasswordUseCase {
         });
       } catch (err) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Unexpected error ocurred while sending an email.',
-          },
+          message: 'Unexpected error ocurred while sending email.',
           status: 500,
         });
       }

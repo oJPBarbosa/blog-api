@@ -4,9 +4,9 @@ import { IMailProvider } from '../../../providers/IMailProvider';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { ICreateUserRequestDTO } from './CreateUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { hash, genSalt } from 'bcrypt';
+import { User } from '../../../entities/User';
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets';
 
 export class CreateUserUseCase {
@@ -21,10 +21,7 @@ export class CreateUserUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -33,10 +30,7 @@ export class CreateUserUseCase {
 
     if (await this.usersRepository.findByEmail(email)) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User already exists.',
-        },
+        message: 'User already exists.',
         status: 409,
       });
     }
@@ -78,10 +72,7 @@ export class CreateUserUseCase {
       });
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Unexpected error ocurred while sending an email.',
-        },
+        message: 'Unexpected error ocurred while sending email.',
         status: 500,
       });
     }

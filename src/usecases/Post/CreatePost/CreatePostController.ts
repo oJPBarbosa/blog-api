@@ -20,8 +20,9 @@ export class CreatePostController {
       return response
         .status(err.hasOwnProperty('status') ? err.status : 500)
         .json({
-          [err._message?.key || 'error']:
-            err._message?.value || 'Unexpected error.',
+          error: err.hasOwnProperty('message')
+            ? err.message
+            : 'Unexpected error.',
         });
     }
   }

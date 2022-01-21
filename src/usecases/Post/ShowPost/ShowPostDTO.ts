@@ -3,7 +3,7 @@ export interface ISlug {
   slug: string;
 }
 
-export interface ShowPostRequestDTO {
+export interface IShowPostRequestDTO {
   post_id?: string;
   slug?: ISlug;
 }

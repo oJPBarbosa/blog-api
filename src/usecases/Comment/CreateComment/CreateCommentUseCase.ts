@@ -1,6 +1,6 @@
 import { ICommentsRepository } from '../../../repositories/ICommentsRepository';
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
-import { CreateCommentRequestDTO } from './CreateCommentDTO';
+import { ICreateCommentRequestDTO } from './CreateCommentDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
 import { Comment } from '../../../entities/Comment';
 import { Post } from '../../../entities/Post';
@@ -12,15 +12,12 @@ export class CreateCommentUseCase {
     private postsRepository: IPostsRepository,
   ) {}
 
-  async execute(data: CreateCommentRequestDTO): Promise<Comment> {
+  async execute(data: ICreateCommentRequestDTO): Promise<Comment> {
     try {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -31,10 +28,7 @@ export class CreateCommentUseCase {
 
     if (!post) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Post not found.',
-        },
+        message: 'Post not found.',
         status: 404,
       });
     }

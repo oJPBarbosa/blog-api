@@ -1,8 +1,8 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IViewPostRequestDTO } from './ViewPostDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { Post } from '../../../entities/Post';
 
 export class ViewPostUseCase {
   constructor(private postsRepository: IPostsRepository) {}
@@ -12,10 +12,7 @@ export class ViewPostUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -29,11 +26,8 @@ export class ViewPostUseCase {
 
     if (!post) {
       throw new ExecuteError({
+        message: 'Post not found.',
         status: 404,
-        _message: {
-          key: 'error',
-          value: 'Post not found.',
-        },
       });
     }
 

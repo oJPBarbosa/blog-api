@@ -1,21 +1,18 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
-import { ShowUserRequestDTO } from './ShowUserDTO';
+import { IShowUserRequestDTO } from './ShowUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
 
 export class ShowUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
+  async execute(data: IShowUserRequestDTO): Promise<object[] | object> {
     try {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -23,7 +20,9 @@ export class ShowUserUseCase {
     const { all, user_id, verified, authorized } = data;
 
     if (all) {
-      return (await this.usersRepository.findAll()).map((user: User) => {
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users.map((user: User) => {
         return {
           email: user.email,
           name: user.name,
@@ -43,10 +42,7 @@ export class ShowUserUseCase {
 
       if (!user) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'User not found.',
-          },
+          message: 'User not found.',
           status: 404,
         });
       }
@@ -65,7 +61,9 @@ export class ShowUserUseCase {
     }
 
     if (verified && authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (user.verified && user.authorized) {
             return {
@@ -89,7 +87,9 @@ export class ShowUserUseCase {
     }
 
     if (!verified && !authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (!user.verified && !user.authorized) {
             return {
@@ -113,7 +113,9 @@ export class ShowUserUseCase {
     }
 
     if (verified && !authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (user.verified && !user.authorized) {
             return {
@@ -137,7 +139,9 @@ export class ShowUserUseCase {
     }
 
     if (!verified && authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (!user.verified && user.authorized) {
             return {
@@ -161,7 +165,9 @@ export class ShowUserUseCase {
     }
 
     if (verified) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (user.verified) {
             return {
@@ -185,7 +191,9 @@ export class ShowUserUseCase {
     }
 
     if (!verified) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (!user.verified) {
             return {
@@ -209,7 +217,9 @@ export class ShowUserUseCase {
     }
 
     if (authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (user.authorized) {
             return {
@@ -233,7 +243,9 @@ export class ShowUserUseCase {
     }
 
     if (!authorized) {
-      return (await this.usersRepository.findAll())
+      const users: User[] = await this.usersRepository.findAll();
+
+      return users
         .map((user: User) => {
           if (!user.authorized) {
             return {

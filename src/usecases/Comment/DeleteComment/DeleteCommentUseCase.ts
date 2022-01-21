@@ -23,10 +23,7 @@ export class DeleteCommentUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -37,10 +34,7 @@ export class DeleteCommentUseCase {
 
     if (!comment) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Comment not found',
-        },
+        message: 'Comment not found',
         status: 404,
       });
     }
@@ -49,10 +43,7 @@ export class DeleteCommentUseCase {
 
     if (!post) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Post not found',
-        },
+        message: 'Post not found',
         status: 404,
       });
     }
@@ -61,10 +52,7 @@ export class DeleteCommentUseCase {
 
     if (!user) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User not found',
-        },
+        message: 'User not found',
         status: 404,
       });
     }

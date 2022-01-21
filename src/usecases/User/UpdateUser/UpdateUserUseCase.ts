@@ -1,23 +1,20 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository';
-import { UpdateUserRequestDTO } from './UpdateUserDTO';
+import { IUpdateUserRequestDTO } from './UpdateUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
 
 export class UpdateUserUseCase {
   constructor(private usersRepository: PostgresUsersRepository) {}
 
-  async execute(data: UpdateUserRequestDTO): Promise<void> {
+  async execute(data: IUpdateUserRequestDTO): Promise<void> {
     const { source_user_id, target_user_id } = data;
 
     try {
       analyzeDTO({ source_user_id, target_user_id });
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -42,15 +39,12 @@ export class UpdateUserUseCase {
 
     if (!sourceUser || !targetUser) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: `Update ${sourceUser ? 'target' : 'source'} user not found.`,
-        },
+        message: `Update ${sourceUser ? 'target' : 'source'} user not found.`,
         status: 404,
       });
     }
 
-    if (sourceUser.root || sourceUser === targetUser) {
+    if (sourceUser === targetUser || sourceUser.root) {
       targetUser.name = name;
       targetUser.email = email;
       targetUser.password = password;
@@ -64,8 +58,6 @@ export class UpdateUserUseCase {
       targetUser.verified = verified;
       targetUser.root = root;
     }
-
-    targetUser.updated_at = new Date();
 
     await this.usersRepository.save(targetUser);
   }

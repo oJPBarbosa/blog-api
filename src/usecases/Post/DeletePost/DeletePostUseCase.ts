@@ -1,9 +1,10 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
-import { DeletePostRequestDTO } from './DeletePostDTO';
+import { IDeletePostRequestDTO } from './DeletePostDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
+import { Post } from '../../../entities/Post';
 
 export class DeletePostUseCase {
   constructor(
@@ -11,40 +12,33 @@ export class DeletePostUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(data: DeletePostRequestDTO): Promise<void> {
+  async execute(data: IDeletePostRequestDTO): Promise<void> {
     try {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
 
     const { source_user_id, post_id } = data;
 
-    const sourceUser = await this.usersRepository.findById(source_user_id);
+    const sourceUser: User = await this.usersRepository.findById(
+      source_user_id,
+    );
     const post: Post = await this.postsRepository.findById(post_id);
 
     if (!sourceUser || !post) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: `${sourceUser ? 'Post' : 'Source user'} not found.`,
-        },
+        message: `${sourceUser ? 'Post' : 'Source user'} not found.`,
         status: 404,
       });
     }
 
     if (sourceUser.user_id !== post.author_id || !sourceUser.root) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Unauthorized.',
-        },
+        message: 'Unauthorized.',
         status: 403,
       });
     }

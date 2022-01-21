@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import authentication from './middlewares/authentication';
 
@@ -24,25 +24,28 @@ import { deleteCommentController } from './usecases/Comment/DeleteComment';
 
 const router: Router = Router();
 
-router.get('/users', (request, response) => {
+router.get('/users', (request: Request, response: Response) => {
   return showUserController.handle(request, response);
 });
-router.post('/users', (request, response) => {
+router.post('/users', (request: Request, response: Response) => {
   return createUserController.handle(request, response);
 });
-router.post('/users/verify', (request, response) => {
+router.post('/users/verify', (request: Request, response: Response) => {
   verifyUserController.handle(request, response);
 });
-router.post('/users/authenticate', (request, response) => {
+router.post('/users/authenticate', (request: Request, response: Response) => {
   return authenticateUserController.handle(request, response);
 });
-router.post('/users/2fa', (request, response) => {
+router.post('/users/2fa', (request: Request, response: Response) => {
   return twoFactorAuthenticateUserController.handle(request, response);
 });
-router.post('/users/forgot-password', (request, response) => {
-  return forgetUserPasswordController.handle(request, response);
-});
-router.post('/users/reset-password', (request, response) => {
+router.post(
+  '/users/forgot-password',
+  (request: Request, response: Response) => {
+    return forgetUserPasswordController.handle(request, response);
+  },
+);
+router.post('/users/reset-password', (request: Request, response: Response) => {
   return resetUserPasswordController.handle(request, response);
 });
 router.put('/users/:id', authentication, (request, response) => {
@@ -52,13 +55,13 @@ router.delete('/users/:id', authentication, (request, response) => {
   return deleteUserController.handle(request, response);
 });
 
-router.get('/posts', (request, response) => {
+router.get('/posts', (request: Request, response: Response) => {
   return showPostController.handle(request, response);
 });
 router.post('/posts', authentication, (request, response) => {
   return createPostController.handle(request, response);
 });
-router.post('/posts/view/:id', (request, response) => {
+router.post('/posts/view', (request: Request, response: Response) => {
   return viewPostController.handle(request, response);
 });
 router.put('/posts/:id', authentication, (request, response) => {
@@ -68,10 +71,10 @@ router.delete('/posts/:id', authentication, (request, response) => {
   return deletePostController.handle(request, response);
 });
 
-router.get('/posts/comments', (request, response) => {
+router.get('/posts/comments', (request: Request, response: Response) => {
   return showCommentController.handle(request, response);
 });
-router.post('/posts/:id/comments', (request, response) => {
+router.post('/posts/:id/comments', (request: Request, response: Response) => {
   return createCommentController.handle(request, response);
 });
 router.delete('/posts/comments/:id', authentication, (request, response) => {

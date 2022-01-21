@@ -1,22 +1,19 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
-import { ShowPostRequestDTO } from './ShowPostDTO';
+import { IShowPostRequestDTO } from './ShowPostDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { Post } from '../../../entities/Post';
 import { Comment } from '../../../entities/Comment';
 
 export class ShowPostUseCase {
   constructor(private postsRepository: IPostsRepository) {}
 
-  async execute(data: ShowPostRequestDTO): Promise<object[] | object> {
+  async execute(data: IShowPostRequestDTO): Promise<object[] | object> {
     try {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -28,10 +25,7 @@ export class ShowPostUseCase {
 
       if (!post) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Post not found.',
-          },
+          message: 'Post not found.',
           status: 404,
         });
       }
@@ -85,10 +79,7 @@ export class ShowPostUseCase {
 
       if (!post) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Post not found.',
-          },
+          message: 'Post not found.',
           status: 404,
         });
       }
@@ -135,7 +126,9 @@ export class ShowPostUseCase {
       };
     }
 
-    return (await this.postsRepository.findAll()).map((post: Post) => {
+    const posts: Post[] = await this.postsRepository.findAll();
+
+    return posts?.map((post: Post) => {
       return {
         id: post.post_id,
         views: Number(post.views),

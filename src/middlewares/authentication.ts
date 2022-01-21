@@ -7,13 +7,13 @@ export default (
   response: Response,
   next: NextFunction,
 ): Response | void => {
-  const authHeader: string = request.headers.authorization;
+  const bearer: string = request.headers.authorization;
 
-  if (!authHeader) {
+  if (!bearer) {
     return response.status(401).json({ error: 'Token not provided.' });
   }
 
-  const [, token] = authHeader.split(' ');
+  const [, token] = bearer.split(' ');
 
   try {
     verify(token, USER_SESSION_SECRET);

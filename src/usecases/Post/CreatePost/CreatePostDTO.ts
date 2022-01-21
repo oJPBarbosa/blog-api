@@ -5,7 +5,7 @@ export interface IPostData {
   content: string;
 }
 
-export interface CreatePostRequestDTO {
+export interface ICreatePostRequestDTO {
   author_id: string;
   en: IPostData;
   pt: IPostData;

@@ -1,4 +1,4 @@
-export interface CreateCommentRequestDTO {
+export interface ICreateCommentRequestDTO {
   post_id: string;
   email: string;
   name: string;

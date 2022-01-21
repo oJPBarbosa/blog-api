@@ -1,6 +1,6 @@
 import slug from 'slugify';
 
-export const slugify = (string: string): string => {
+export const slugify: Function = (string: string): string => {
   return slug(string, {
     remove: /[\|'"!@#$%¨&*()_+=[]{};:.>,<]/g,
     lower: true,

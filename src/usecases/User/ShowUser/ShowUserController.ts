@@ -9,31 +9,34 @@ export class ShowUserController {
 
     try {
       if (id) {
-        const user = await this.showUserUseCase.execute({
+        const user: object = (await this.showUserUseCase.execute({
           user_id: id.toString(),
-        });
+        })) as object;
 
         return response.json(user);
       }
 
       if (verified || authorized) {
-        const users = await this.showUserUseCase.execute({
+        const users: object[] = (await this.showUserUseCase.execute({
           verified: verified?.toString() === 'true',
           authorized: authorized?.toString() === 'true',
-        });
+        })) as object[];
 
         return response.json(users);
       }
 
-      const users = await this.showUserUseCase.execute({ all: true });
+      const users: object[] = (await this.showUserUseCase.execute({
+        all: true,
+      })) as object[];
 
       return response.json(users);
     } catch (err) {
       return response
         .status(err.hasOwnProperty('status') ? err.status : 500)
         .json({
-          [err._message?.key || 'error']:
-            err._message?.value || 'Unexpected error.',
+          error: err.hasOwnProperty('message')
+            ? err.message
+            : 'Unexpected error.',
         });
     }
   }

@@ -2,8 +2,9 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import speakeasy from 'speakeasy';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
+import speakeasy from 'speakeasy';
 import { USER_SESSION_SECRET } from '../../../utils/secrets';
 
 export class TwoFactorAuthenticateUserUseCase {
@@ -17,17 +18,23 @@ export class TwoFactorAuthenticateUserUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
 
     const { user_id, token, KMSI } = data;
 
-    const { secret, root } = await this.usersRepository.findById(user_id);
+    const user: User = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new ExecuteError({
+        message: 'User not found',
+        status: 404,
+      });
+    }
+
+    const { secret, root } = user;
 
     const verified: boolean = speakeasy.totp.verify({
       secret,
@@ -38,18 +45,17 @@ export class TwoFactorAuthenticateUserUseCase {
 
     if (!verified) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid token.',
-        },
+        message: 'Invalid token.',
         status: 401,
       });
     }
 
-    return this.tokenProvider.generateToken(
+    const session: string = this.tokenProvider.generateToken(
       { id: user_id, root },
       USER_SESSION_SECRET,
       KMSI,
     );
+
+    return session;
   }
 }

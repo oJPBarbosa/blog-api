@@ -3,8 +3,8 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { IAuthenticateUserRequestDTO } from './AuthenticateUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
 import { compare } from 'bcrypt';
 import speakeasy from 'speakeasy';
 
@@ -19,10 +19,7 @@ export class AuthenticateUserUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -33,32 +30,23 @@ export class AuthenticateUserUseCase {
 
     if (!user) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User not found.',
-        },
+        message: 'User not found.',
         status: 404,
       });
     }
 
     if (!user.verified || !user.authorized) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: `User is not ${user.verified ? 'authorized' : 'verified'}.`,
-        },
+        message: `User is not ${user.verified ? 'authorized' : 'verified'}.`,
         status: 401,
       });
     }
 
-    const passwordMatches = await compare(password, user.password);
+    const passwordMatches: boolean = await compare(password, user.password);
 
     if (!passwordMatches) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid password.',
-        },
+        message: 'Invalid password.',
         status: 401,
       });
     }
@@ -84,10 +72,7 @@ export class AuthenticateUserUseCase {
       });
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Unexpected error ocurred while sending an email.',
-        },
+        message: 'Unexpected error ocurred while sending email.',
         status: 500,
       });
     }

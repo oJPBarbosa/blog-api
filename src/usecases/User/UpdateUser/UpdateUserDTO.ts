@@ -3,7 +3,7 @@ export interface IBiography {
   pt?: string;
 }
 
-export interface UpdateUserRequestDTO {
+export interface IUpdateUserRequestDTO {
   source_user_id: string;
   target_user_id: string;
   name?: string;

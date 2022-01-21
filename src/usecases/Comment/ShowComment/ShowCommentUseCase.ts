@@ -17,16 +17,13 @@ export class ShowCommentUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
 
     const { comment_id, post_id, slug } = data;
-    let comments: Comment[] = [];
+    let comments: Comment[];
 
     if (comment_id) {
       const comment: Comment = await this.commentsRepository.findById(
@@ -35,10 +32,7 @@ export class ShowCommentUseCase {
 
       if (!comment) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Comment not found.',
-          },
+          message: 'Comment not found.',
           status: 404,
         });
       }
@@ -55,10 +49,7 @@ export class ShowCommentUseCase {
 
       if (!post) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Post not found.',
-          },
+          message: 'Post not found.',
           status: 404,
         });
       }
@@ -72,10 +63,7 @@ export class ShowCommentUseCase {
 
       if (!post) {
         throw new ExecuteError({
-          _message: {
-            key: 'error',
-            value: 'Post not found.',
-          },
+          message: 'Post not found.',
           status: 404,
         });
       }

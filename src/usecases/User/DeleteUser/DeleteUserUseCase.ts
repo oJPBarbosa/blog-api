@@ -1,8 +1,8 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { IDeleteUserRequestDTO } from './DeleteUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
 
 export class DeleteUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
@@ -12,37 +12,30 @@ export class DeleteUserUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
 
     const { source_user_id, target_user_id } = data;
 
-    const sourceUser = await this.usersRepository.findById(source_user_id);
+    const sourceUser: User = await this.usersRepository.findById(
+      source_user_id,
+    );
     const targetUser: User = await this.usersRepository.findById(
       target_user_id,
     );
 
     if (!sourceUser || !targetUser) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: `${sourceUser ? 'Target' : 'Source'} user not found.`,
-        },
+        message: `${sourceUser ? 'Target' : 'Source'} user not found.`,
         status: 404,
       });
     }
 
     if (sourceUser.user_id === targetUser.user_id || !sourceUser.root) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Unauthorized.',
-        },
+        message: 'Unauthorized.',
         status: 403,
       });
     }

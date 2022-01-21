@@ -6,7 +6,7 @@ export interface IPostData {
   content?: string;
 }
 
-export interface UpdatePostRequestDTO {
+export interface IUpdatePostRequestDTO {
   source_user_id: string;
   target_post_id: string;
   views?: number;

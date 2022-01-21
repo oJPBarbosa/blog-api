@@ -1,9 +1,9 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
-import { CreatePostRequestDTO } from './CreatePostDTO';
+import { ICreatePostRequestDTO } from './CreatePostDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
-import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
+import { User } from '../../../entities/User';
 import { Post } from '../../../entities/Post';
 import { slugify } from '../../../utils/slugify';
 import readingTime from 'reading-time';
@@ -14,15 +14,12 @@ export class CreatePostUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(data: CreatePostRequestDTO): Promise<Post> {
+  async execute(data: ICreatePostRequestDTO): Promise<Post> {
     try {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -33,10 +30,7 @@ export class CreatePostUseCase {
 
     if (!user) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User not found.',
-        },
+        message: 'User not found.',
         status: 404,
       });
     }

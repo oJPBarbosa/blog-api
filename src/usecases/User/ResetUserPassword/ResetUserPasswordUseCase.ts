@@ -2,12 +2,12 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { IResetUserPasswordRequestDTO } from './ResetUserPasswordDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
+import { ExecuteError } from '../../../errors/ExecuteError';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import {
   USER_RESET_PASSWORD_SECRET,
   USER_SESSION_SECRET,
 } from '../../../utils/secrets';
-import { ExecuteError } from '../../../errors/ExecuteError';
 import { User } from '../../../entities/User';
 import { hash, genSalt } from 'bcrypt';
 
@@ -22,10 +22,7 @@ export class ResetUserPasswordUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
@@ -37,20 +34,14 @@ export class ResetUserPasswordUseCase {
       payload = verify(token, USER_RESET_PASSWORD_SECRET);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid token.',
-        },
+        message: 'Invalid token.',
         status: 401,
       });
     }
 
     if (typeof payload === 'string') {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid token.',
-        },
+        message: 'Invalid token.',
         status: 401,
       });
     }

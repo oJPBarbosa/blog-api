@@ -5,7 +5,7 @@ export class DeleteCommentController {
   constructor(private deleteCommentUseCase: DeleteCommentUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const comment_id = request.params.id;
+    const comment_id: string = request.params.id;
     const { source_user_id } = request.body;
 
     try {
@@ -19,8 +19,9 @@ export class DeleteCommentController {
       return response
         .status(err.hasOwnProperty('status') ? err.status : 500)
         .json({
-          [err._message?.key || 'error']:
-            err._message?.value || 'Unexpected error.',
+          error: err.hasOwnProperty('message')
+            ? err.message
+            : 'Unexpected error.',
         });
     }
   }

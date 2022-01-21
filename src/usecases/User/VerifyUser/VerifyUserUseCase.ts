@@ -3,10 +3,10 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { IVerifyUserRequestDTO } from './VerifyUserDTO';
 import { analyzeDTO } from '../../../errors/DTOError';
+import { ExecuteError } from '../../../errors/ExecuteError';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { USER_VERIFICATION_SECRET } from '../../../utils/secrets';
 import { User } from '../../../entities/User';
-import { ExecuteError } from '../../../errors/ExecuteError';
 import speakeasy from 'speakeasy';
 
 export class VerifyUserUseCase {
@@ -20,35 +20,27 @@ export class VerifyUserUseCase {
       analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: err.message,
-        },
+        message: err.message,
         status: 400,
       });
     }
 
     const { token } = data;
 
-    let payload: string | JwtPayload = null;
+    let payload: string | JwtPayload;
+
     try {
       payload = verify(token, USER_VERIFICATION_SECRET);
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid token.',
-        },
+        message: 'Invalid token.',
         status: 401,
       });
     }
 
     if (typeof payload === 'string') {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Invalid token.',
-        },
+        message: 'Invalid token.',
         status: 401,
       });
     }
@@ -59,20 +51,14 @@ export class VerifyUserUseCase {
 
     if (!user) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User not found.',
-        },
+        message: 'User not found.',
         status: 404,
       });
     }
 
     if (user.verified) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'User already verified.',
-        },
+        message: 'User already verified.',
         status: 409,
       });
     }
@@ -121,10 +107,7 @@ export class VerifyUserUseCase {
       });
     } catch (err) {
       throw new ExecuteError({
-        _message: {
-          key: 'error',
-          value: 'Unexpected error ocurred while sending an email.',
-        },
+        message: 'Unexpected error ocurred while sending email.',
         status: 500,
       });
     }

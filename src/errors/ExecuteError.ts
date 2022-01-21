@@ -1,22 +1,17 @@
-export interface IErrorMessage {
-  key: string;
-  value: string;
-}
-
 export interface IExecuteError {
-  _message: IErrorMessage;
+  message: string;
   status: number;
 }
 
 export class ExecuteError extends Error {
-  _message: IErrorMessage;
+  message: string;
 
   status: number;
 
   constructor(error: IExecuteError) {
-    super(error._message.value);
+    super(error.message);
 
-    this._message = error._message;
+    this.message = error.message;
     this.status = error.status;
   }
 }
