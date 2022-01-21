@@ -2,6 +2,5 @@
   "singleQuote": true,
   "semi": true,
   "arrowParens": "always",
-  "trailingComma": "all",
-  "endOfLine": "auto"
+  "trailingComma": "all"
 }
