@@ -31,6 +31,6 @@
     "arrow-body-style": 0,
     "no-else-return": 0,
     "no-plusplus": 0,
-    "max-len": ["warn", { "code": 120 }]
+    "max-len": ["warn", { "code": 80 }]
   }
 }
