@@ -24,61 +24,58 @@ import { deleteCommentController } from './usecases/Comment/DeleteComment';
 
 const router: Router = Router();
 
-router.get('/users', (request: Request, response: Response) => {
-  return showUserController.handle(request, response);
-});
-router.post('/users', (request: Request, response: Response) => {
-  return createUserController.handle(request, response);
-});
+router.get('/users', (request: Request, response: Response) =>
+  showUserController.handle(request, response),
+);
+router.post('/users', (request: Request, response: Response) =>
+  createUserController.handle(request, response),
+);
 router.post('/users/verify', (request: Request, response: Response) => {
   verifyUserController.handle(request, response);
 });
-router.post('/users/authenticate', (request: Request, response: Response) => {
-  return authenticateUserController.handle(request, response);
-});
-router.post('/users/2fa', (request: Request, response: Response) => {
-  return twoFactorAuthenticateUserController.handle(request, response);
-});
-router.post(
-  '/users/forgot-password',
-  (request: Request, response: Response) => {
-    return forgetUserPasswordController.handle(request, response);
-  },
+router.post('/users/authenticate', (request: Request, response: Response) =>
+  authenticateUserController.handle(request, response),
 );
-router.post('/users/reset-password', (request: Request, response: Response) => {
-  return resetUserPasswordController.handle(request, response);
-});
-router.put('/users/:id', authentication, (request, response) => {
-  return updateUserController.handle(request, response);
-});
-router.delete('/users/:id', authentication, (request, response) => {
-  return deleteUserController.handle(request, response);
-});
+router.post('/users/2fa', (request: Request, response: Response) =>
+  twoFactorAuthenticateUserController.handle(request, response),
+);
+router.post('/users/forgot-password', (request: Request, response: Response) =>
+  forgetUserPasswordController.handle(request, response),
+);
+router.post('/users/reset-password', (request: Request, response: Response) =>
+  resetUserPasswordController.handle(request, response),
+);
+router.put('/users/:id', authentication, (request, response) =>
+  updateUserController.handle(request, response),
+);
+router.delete('/users/:id', authentication, (request, response) =>
+  deleteUserController.handle(request, response),
+);
 
-router.get('/posts', (request: Request, response: Response) => {
-  return showPostController.handle(request, response);
-});
-router.post('/posts', authentication, (request, response) => {
-  return createPostController.handle(request, response);
-});
-router.post('/posts/view', (request: Request, response: Response) => {
-  return viewPostController.handle(request, response);
-});
-router.put('/posts/:id', authentication, (request, response) => {
-  return updatePostController.handle(request, response);
-});
-router.delete('/posts/:id', authentication, (request, response) => {
-  return deletePostController.handle(request, response);
-});
+router.get('/posts', (request: Request, response: Response) =>
+  showPostController.handle(request, response),
+);
+router.post('/posts', authentication, (request, response) =>
+  createPostController.handle(request, response),
+);
+router.post('/posts/view', (request: Request, response: Response) =>
+  viewPostController.handle(request, response),
+);
+router.put('/posts/:id', authentication, (request, response) =>
+  updatePostController.handle(request, response),
+);
+router.delete('/posts/:id', authentication, (request, response) =>
+  deletePostController.handle(request, response),
+);
 
-router.get('/posts/comments', (request: Request, response: Response) => {
-  return showCommentController.handle(request, response);
-});
-router.post('/posts/:id/comments', (request: Request, response: Response) => {
-  return createCommentController.handle(request, response);
-});
-router.delete('/posts/comments/:id', authentication, (request, response) => {
-  return deleteCommentController.handle(request, response);
-});
+router.get('/posts/comments', (request: Request, response: Response) =>
+  showCommentController.handle(request, response),
+);
+router.post('/posts/:id/comments', (request: Request, response: Response) =>
+  createCommentController.handle(request, response),
+);
+router.delete('/posts/comments/:id', authentication, (request, response) =>
+  deleteCommentController.handle(request, response),
+);
 
 export default router;
