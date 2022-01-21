@@ -1,7 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { IResetUserPasswordRequestDTO } from './ResetUserPasswordDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import {
   USER_RESET_PASSWORD_SECRET,
@@ -19,7 +19,7 @@ export class ResetUserPasswordUseCase {
 
   async execute(data: IResetUserPasswordRequestDTO): Promise<string> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

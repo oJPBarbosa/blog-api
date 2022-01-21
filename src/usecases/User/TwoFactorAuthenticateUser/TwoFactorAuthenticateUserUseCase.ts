@@ -1,7 +1,7 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { ITwoFactorAuthenticateUserRequestDTO } from './TwoFactorAuthenticateUserDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import speakeasy from 'speakeasy';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { USER_SESSION_SECRET } from '../../../utils/secrets';
@@ -14,7 +14,7 @@ export class TwoFactorAuthenticateUserUseCase {
 
   async execute(data: ITwoFactorAuthenticateUserRequestDTO) {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

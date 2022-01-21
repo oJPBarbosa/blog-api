@@ -3,7 +3,7 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { ICreateUserRequestDTO } from './CreateUserDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { hash, genSalt } from 'bcrypt';
@@ -18,7 +18,7 @@ export class CreateUserUseCase {
 
   async execute(data: ICreateUserRequestDTO): Promise<User> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

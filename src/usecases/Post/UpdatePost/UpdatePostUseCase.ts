@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { UpdatePostRequestDTO } from './UpdatePostDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { slugify } from '../../../utils/slugify';
 import readingTime from 'reading-time';
@@ -16,7 +16,7 @@ export class UpdatePostUseCase {
     const { source_user_id, target_post_id } = data;
 
     try {
-      analyseDTO({ target_post_id, source_user_id });
+      analyzeDTO({ target_post_id, source_user_id });
     } catch (err) {
       throw new ExecuteError({
         _message: {

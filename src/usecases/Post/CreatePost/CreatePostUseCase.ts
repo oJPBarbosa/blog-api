@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { CreatePostRequestDTO } from './CreatePostDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { Post } from '../../../entities/Post';
@@ -16,7 +16,7 @@ export class CreatePostUseCase {
 
   async execute(data: CreatePostRequestDTO): Promise<Post> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

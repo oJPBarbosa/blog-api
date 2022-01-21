@@ -1,7 +1,7 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { DeletePostRequestDTO } from './DeletePostDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
 
@@ -13,7 +13,7 @@ export class DeletePostUseCase {
 
   async execute(data: DeletePostRequestDTO): Promise<void> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

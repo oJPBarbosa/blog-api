@@ -1,6 +1,6 @@
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ShowUserRequestDTO } from './ShowUserDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
 
@@ -9,7 +9,7 @@ export class ShowUserUseCase {
 
   async execute(data: ShowUserRequestDTO): Promise<object[] | object> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

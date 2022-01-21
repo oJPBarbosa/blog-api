@@ -6,7 +6,7 @@ export class DTOError extends Error {
   }
 }
 
-export const analyseDTO = (DTO: object) => {
+export const analyzeDTO = (DTO: object) => {
   const keys: string[] = Object.keys(DTO);
 
   keys.forEach((key: string) => {
@@ -25,7 +25,7 @@ export const analyseDTO = (DTO: object) => {
         throw new DTOError(`${key} cannot be empty.`);
       }
 
-      analyseDTO(value);
+      analyzeDTO(value);
     } else if (value === undefined || value === null) {
       throw new DTOError(`${key} is required.`);
     }

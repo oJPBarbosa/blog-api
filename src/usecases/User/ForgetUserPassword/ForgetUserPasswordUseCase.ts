@@ -3,7 +3,7 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { ITokenProvider } from '../../../providers/ITokenProvider';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { IForgetUserPasswordRequestDTO } from './ForgetUserPasswordDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User';
 import { USER_RESET_PASSWORD_SECRET } from '../../../utils/secrets';
 import { ExecuteError } from '../../../errors/ExecuteError';
@@ -17,7 +17,7 @@ export class ForgetUserPasswordUseCase {
 
   async execute(data: IForgetUserPasswordRequestDTO): Promise<void> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

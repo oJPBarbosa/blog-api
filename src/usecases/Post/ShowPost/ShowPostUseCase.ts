@@ -1,6 +1,6 @@
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { ShowPostRequestDTO } from './ShowPostDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { Comment } from '../../../entities/Comment';
@@ -10,7 +10,7 @@ export class ShowPostUseCase {
 
   async execute(data: ShowPostRequestDTO): Promise<object[] | object> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

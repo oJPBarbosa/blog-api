@@ -1,6 +1,6 @@
 import { PostgresUsersRepository } from '../../../repositories/implementations/PostgresUsersRepository';
 import { UpdateUserRequestDTO } from './UpdateUserDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { User } from '../../../entities/User';
 import { ExecuteError } from '../../../errors/ExecuteError';
 
@@ -11,7 +11,7 @@ export class UpdateUserUseCase {
     const { source_user_id, target_user_id } = data;
 
     try {
-      analyseDTO({ source_user_id, target_user_id });
+      analyzeDTO({ source_user_id, target_user_id });
     } catch (err) {
       throw new ExecuteError({
         _message: {

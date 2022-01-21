@@ -4,7 +4,7 @@ import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { IUsersRepository } from '../../../repositories/IUsersRepository';
 import { IMailProvider } from '../../../providers/IMailProvider';
 import { IDeleteCommentRequestDTO } from './DeleteCommentDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { ExecuteError } from '../../../errors/ExecuteError';
 import { Comment } from '../../../entities/Comment';
 import { Post } from '../../../entities/Post';
@@ -20,7 +20,7 @@ export class DeleteCommentUseCase {
 
   async execute(data: IDeleteCommentRequestDTO): Promise<void> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {

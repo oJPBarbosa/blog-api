@@ -1,7 +1,7 @@
 import { ICommentsRepository } from '../../../repositories/ICommentsRepository';
 import { IPostsRepository } from '../../../repositories/IPostsRepository';
 import { CreateCommentRequestDTO } from './CreateCommentDTO';
-import { analyseDTO } from '../../../errors/DTOError';
+import { analyzeDTO } from '../../../errors/DTOError';
 import { Comment } from '../../../entities/Comment';
 import { Post } from '../../../entities/Post';
 import { ExecuteError } from '../../../errors/ExecuteError';
@@ -14,7 +14,7 @@ export class CreateCommentUseCase {
 
   async execute(data: CreateCommentRequestDTO): Promise<Comment> {
     try {
-      analyseDTO(data);
+      analyzeDTO(data);
     } catch (err) {
       throw new ExecuteError({
         _message: {
