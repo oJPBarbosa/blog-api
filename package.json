@@ -10,7 +10,7 @@
     "build": "tsc",
     "postinstall": "yarn run build",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
-    "lint": "eslint -c .eslintrc.json --ext .ts ./src"
+    "lint": "eslint -c .eslintrc.json --ext .ts src"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
